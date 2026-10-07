@@ -1,0 +1,14 @@
+# Local Mac environment, Python 3.11. Tested direct dependencies.
+# ARC uses the existing graph-pes-arc environment; do not install this there.
+# Recreate locally: uv venv --python 3.11 .venv
+# Then: uv pip install --python .venv/bin/python -r requirements.txt
+graph-pes==1.0.2
+torch==2.6.0
+pytorch-lightning==2.5.1
+ase==3.29.0
+numpy==2.4.6
+matplotlib==3.11.2
+pandas==3.0.6
+wandb==0.30.0
+ipykernel==7.4.0
+PyYAML==6.0.3
