@@ -1,0 +1,73 @@
+{
+  "split": "validation",
+  "data_path": "data/valid.xyz",
+  "data_sha256": "5610becf9e88f82b4f0f68a2d34f5e1316f14e18e6ad61b0ded7c64630e757b6",
+  "matching_split_hashes": {
+    "train": "259151495362753f3a7f8d5eddc1b9643b8ebb4d1cb4a845c41155341450d67d",
+    "valid": "5610becf9e88f82b4f0f68a2d34f5e1316f14e18e6ad61b0ded7c64630e757b6"
+  },
+  "n_structures": 50,
+  "device": "cpu",
+  "torch_threads": 4,
+  "machine": "arm64",
+  "graph_pes_version": "1.0.2",
+  "torch_version": "2.6.0",
+  "energy_units": "eV; per-atom metrics displayed in meV/atom",
+  "force_units": "eV/\u00c5",
+  "timing_protocol": "One warm-up; then 50 sequential joint energy/force calls, skin=0, frozen weights, position gradients enabled. Excludes model load.",
+  "test_set_read": false,
+  "runs": {
+    "03 \u00b7 SchNet": {
+      "run": "lossratio_and_learnedOffsets-9004704",
+      "model_sha256": "f59ec28ab17065aa2adaa1d14af9f2a9349d69c1aa96735d929bbf20916ce31f",
+      "config_sha256": "4a0a51f1df493ffeb700d45856ae12cd24e435942c90ffd0368458b635df43ee",
+      "best_checkpoint_sha256": "eed64ee0605ffae2066b3b608a38910f97221a1bec35921f9efc1d69cef64bdd",
+      "best_checkpoint_epoch": 244,
+      "best_global_step": 48800,
+      "last_checkpoint_epoch": 300,
+      "last_global_step": 60000,
+      "export_matches_best": true,
+      "epoch_progress": {
+        "total": {
+          "ready": 300,
+          "completed": 299,
+          "started": 300,
+          "processed": 300
+        },
+        "current": {
+          "ready": 300,
+          "completed": 299,
+          "started": 300,
+          "processed": 300
+        }
+      },
+      "evaluation_seconds": 0.4107676660642028
+    },
+    "04 \u00b7 NequIP": {
+      "run": "NequIP-L40S-MAE-batch1-9012782",
+      "model_sha256": "c0fefe7dd1e6c8b48a110ca75be62274ec9ae6c6733c60b4ae959a0f3375f69b",
+      "config_sha256": "4f9ffa8e2809aee9ed20e1283d0cb922d17496c55c3d59c11fad582491626f1a",
+      "best_checkpoint_sha256": "b0151c9be99afc4c09fce7a1c613381ca5c13d4b69d101dd95c682eae6078d57",
+      "best_checkpoint_epoch": 9,
+      "best_global_step": 7200,
+      "last_checkpoint_epoch": 11,
+      "last_global_step": 8800,
+      "export_matches_best": true,
+      "epoch_progress": {
+        "total": {
+          "ready": 11,
+          "completed": 10,
+          "started": 11,
+          "processed": 11
+        },
+        "current": {
+          "ready": 11,
+          "completed": 10,
+          "started": 11,
+          "processed": 11
+        }
+      },
+      "evaluation_seconds": 316.55502349999733
+    }
+  }
+}

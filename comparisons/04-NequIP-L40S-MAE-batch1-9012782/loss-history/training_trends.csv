@@ -1,0 +1,3 @@
+Model,Validation epochs logged,Best epoch,Best validation loss,Final validation loss,Training mean at last validation,Latest training epoch logged,Partial training epoch present
+03 · SchNet,300,244,0.175987035036087,0.1798563003540039,0.15373909473419184,300,False
+04 · NequIP,11,9,0.0715443864464759,0.0902190804481506,0.09916021469980474,12,True

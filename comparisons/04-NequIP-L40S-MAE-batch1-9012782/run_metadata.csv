@@ -1,0 +1,3 @@
+Model,Run,Best checkpoint epoch,Last checkpoint epoch,Last global step,Planned max epochs,Learnable parameters,Layers,Features,Cutoff (Å),Training batch size,Energy loss,Initial LR,Seed,Export matches best
+03 · SchNet,lossratio_and_learnedOffsets-9004704,244,300,60000,300,61786,3,64,5.0,4,RMSE (default),0.001,42,True
+04 · NequIP,NequIP-L40S-MAE-batch1-9012782,9,11,8800,300,6449280,6,"{'edge_irreps': '0e + 1o + 2e', 'node_irreps': '128x0e + 128x1o + 128x2e + 128x0o + 128x1e + 128x2o'}",5.533,1,MAE,0.003,42,True
