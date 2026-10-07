@@ -1,0 +1,61 @@
+CUTOFF: 5.533
+
+general:
+  seed: 42
+  progress: logged
+
+model:
+  offset: +LearnableOffset()
+  nequip:
+    +NequIP:
+      elements: [Si, O]
+      cutoff: =/CUTOFF
+      layers: 6
+      radial_features: 64
+      features:
+        node_irreps: "128x0e + 128x1o + 128x2e + 128x0o + 128x1e + 128x2o"
+        edge_irreps: "0e + 1o + 2e"
+      direct_force_predictions: false
+      prune_last_layer: false
+
+data:
+  train:
+    path: data/train.xyz
+    property_map: {QM_energy: energy, QM_forces: forces}
+  valid:
+    path: data/valid.xyz
+    property_map: {QM_energy: energy, QM_forces: forces}
+  test: null
+
+loss:
+  energy: +PerAtomEnergyLoss()
+  forces:
+    +ForceRMSE:
+      weight: 1.0
+
+fitting:
+  trainer_kwargs:
+    accelerator: cpu
+    devices: 1
+    max_epochs: 300
+    log_every_n_steps: 10
+  loader_kwargs:
+    batch_size: 4
+    num_workers: 0
+    persistent_workers: false
+  optimizer:
+    name: AdamW
+    lr: 0.003
+  scheduler:
+    name: ReduceLROnPlateau
+    patience: 25
+    factor: 0.8
+  early_stopping:
+    patience: 100
+  keep: best
+
+wandb:
+  entity: trin4011-university-of-oxford
+  project: transfer-learning
+  name: nequip-startingpoint
+  log_model: false

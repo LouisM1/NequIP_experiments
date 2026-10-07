@@ -1,0 +1,312 @@
+[graph-pes INFO]: Logging to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/rank-0.log
+[graph-pes INFO]: ID for this training run: NequIP-L40S-MAE-batch1-9012782
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/NequIP-L40S-MAE-batch1-9012782
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="NequIP-L40S-MAE-batch1-9012782",
+  log_model=False,
+  id="NequIP-L40S-MAE-batch1-9012782",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [OffsetLogger(root=graph-pes-results/NequIP-L40S-MAE-batch1-9012782), ScalesLogger(root=graph-pes-results/NequIP-L40S-MAE-batch1-9012782), <graph_pes.training.callbacks.ModelTimer object at 0x1531c81e5010>, SaveBestModel(root=graph-pes-results/NequIP-L40S-MAE-batch1-9012782), <graph_pes.training.callbacks.LoggedProgressBar object at 0x1531cb021e10>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x1531bdd5b1d0>, EarlyStoppingWithLogging(root=graph-pes-results/NequIP-L40S-MAE-batch1-9012782), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1531bdf71490>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1531bdd5bd50>]
+[graph-pes DEBUG]: 
+Model:
+AdditionModel(
+  offset=LearnableOffset(trainable=True),
+  nequip=NequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (384x0e+128x1o+128x2e -> 128x0e+128x1o+128x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 384x0e+128x1o+128x2e | 81920 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 384x0e+128x1o+128x2e | 98304 paths | 98304 weights)
+        )
+      )
+      (1): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+128x1o+128x2e -> 128x0e+128x1o+128x2e | 49152 weights)
+        (message_tensor_product): TensorProduct(128x0e+128x1o+128x2e x 1x0e+1x1o+1x2e -> 384x0e+512x1o+256x1e+256x2o+512x2e | 1920 paths | 1920 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 1920, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (640x0e+128x1o+128x1e+128x2o+128x2e -> 128x0e+128x1o+128x1e+128x2o+128x2e)
+        (post_message_linear): Linear(384x0e+512x1o+256x1e+256x2o+512x2e -> 640x0e+128x1o+128x1e+128x2o+128x2e | 442368 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+128x1o+128x2e x 2x0e -> 640x0e+128x1o+128x1e+128x2o+128x2e | 229376 paths | 229376 weights)
+        )
+      )
+      (2): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+128x1o+128x1e+128x2o+128x2e -> 128x0e+128x1o+128x1e+128x2o+128x2e | 81920 weights)
+        (message_tensor_product): TensorProduct(128x0e+128x1o+128x1e+128x2o+128x2e x 1x0e+1x1o+1x2e -> 256x0o+384x0e+768x1o+640x1e+640x2o+768x2e | 3456 paths | 3456 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 3456, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0o+640x0e+128x1o+128x1e+128x2o+128x2e -> 128x0o+128x0e+128x1o+128x1e+128x2o+128x2e)
+        (post_message_linear): Linear(256x0o+384x0e+768x1o+640x1e+640x2o+768x2e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 638976 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+128x1o+128x1e+128x2o+128x2e x 2x0e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 294912 paths | 294912 weights)
+        )
+      )
+      (3-5): 3 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e -> 128x0o+128x0e+128x1o+128x1e+128x2o+128x2e | 98304 weights)
+        (message_tensor_product): TensorProduct(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e x 1x0e+1x1o+1x2e -> 384x0o+384x0e+768x1o+768x1e+768x2o+768x2e | 3840 paths | 3840 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 3840, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0o+640x0e+128x1o+128x1e+128x2o+128x2e -> 128x0o+128x0e+128x1o+128x1e+128x2o+128x2e)
+        (post_message_linear): Linear(384x0o+384x0e+768x1o+768x1e+768x2o+768x2e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 688128 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e x 2x0e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 327680 paths | 327680 weights)
+        )
+      )
+    )
+    (energy_readout): LinearReadOut(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e -> 1x0e | 128 weights)
+    (scaler): LocalEnergiesScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(800, properties=['forces', 'energy']),
+  valid=ASEToGraphDataset(50, properties=['forces', 'energy'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.003)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+PerAtomEnergyLoss("energy", metric=MAE())
+ForceRMSE("forces", metric=RMSE())
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 800 structures with cutoff 5.5329999923706055, property mapping {'QM_energy': 'energy', 'QM_forces': 'forces'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 5.5329999923706055, property mapping {'QM_energy': 'energy', 'QM_forces': 'forces'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 800 samples
+[graph-pes DEBUG]: Attempting to pre-fit LearnableOffset
+[graph-pes WARNING]: 
+We are attempting to guess the mean per-element
+contribution for a per-structure quantity (usually
+the total energy). 
+
+However, the composition of the training set is such that 
+no unique solution is possible. 
+
+This is probably because you are training on structures
+all with the same composition (e.g. all structures are
+of the form n H2O). Consider explicitly setting the
+per-element contributions if you know them, or
+including a variety of structures of different
+compositions in the training set.
+
+[graph-pes DEBUG]: Per-element means: {8: -421.2230529785156, 14: -210.6115264892578}
+[graph-pes DEBUG]: Per-element variances: {8: 1.7598543167114258, 14: 0.879980742931366}
+[graph-pes WARNING]: 
+Estimated per-element energy offsets from the training data:
+    PerElementParameter(trainable=True)
+This will lead to a lack of guaranteed physicality in the model, 
+since the energy of an isolated atom (and hence the behaviour of 
+this model in the dissociation limit) is not guaranteed to be 
+correct. Use a FixedOffset energy offset model if you require
+and know the reference energy offsets.
+
+[graph-pes DEBUG]: Attempting to pre-fit NequIP
+[graph-pes WARNING]: 
+We are attempting to guess the mean per-element
+contribution for a per-structure quantity (usually
+the total energy). 
+
+However, the composition of the training set is such that 
+no unique solution is possible. 
+
+This is probably because you are training on structures
+all with the same composition (e.g. all structures are
+of the form n H2O). Consider explicitly setting the
+per-element contributions if you know them, or
+including a variety of structures of different
+compositions in the training set.
+
+[graph-pes DEBUG]: Per-element means: {8: -421.2230529785156, 14: -210.6115264892578}
+[graph-pes DEBUG]: Per-element variances: {8: 1.7598543167114258, 14: 0.879980742931366}
+[graph-pes DEBUG]: 
+Model:
+AdditionModel(
+  offset=LearnableOffset({'O': -421.0, 'Si': -211.0}, trainable=True),
+  nequip=NequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (384x0e+128x1o+128x2e -> 128x0e+128x1o+128x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 384x0e+128x1o+128x2e | 81920 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 384x0e+128x1o+128x2e | 98304 paths | 98304 weights)
+        )
+      )
+      (1): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+128x1o+128x2e -> 128x0e+128x1o+128x2e | 49152 weights)
+        (message_tensor_product): TensorProduct(128x0e+128x1o+128x2e x 1x0e+1x1o+1x2e -> 384x0e+512x1o+256x1e+256x2o+512x2e | 1920 paths | 1920 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 1920, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (640x0e+128x1o+128x1e+128x2o+128x2e -> 128x0e+128x1o+128x1e+128x2o+128x2e)
+        (post_message_linear): Linear(384x0e+512x1o+256x1e+256x2o+512x2e -> 640x0e+128x1o+128x1e+128x2o+128x2e | 442368 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+128x1o+128x2e x 2x0e -> 640x0e+128x1o+128x1e+128x2o+128x2e | 229376 paths | 229376 weights)
+        )
+      )
+      (2): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+128x1o+128x1e+128x2o+128x2e -> 128x0e+128x1o+128x1e+128x2o+128x2e | 81920 weights)
+        (message_tensor_product): TensorProduct(128x0e+128x1o+128x1e+128x2o+128x2e x 1x0e+1x1o+1x2e -> 256x0o+384x0e+768x1o+640x1e+640x2o+768x2e | 3456 paths | 3456 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 3456, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0o+640x0e+128x1o+128x1e+128x2o+128x2e -> 128x0o+128x0e+128x1o+128x1e+128x2o+128x2e)
+        (post_message_linear): Linear(256x0o+384x0e+768x1o+640x1e+640x2o+768x2e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 638976 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+128x1o+128x1e+128x2o+128x2e x 2x0e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 294912 paths | 294912 weights)
+        )
+      )
+      (3-5): 3 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e -> 128x0o+128x0e+128x1o+128x1e+128x2o+128x2e | 98304 weights)
+        (message_tensor_product): TensorProduct(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e x 1x0e+1x1o+1x2e -> 384x0o+384x0e+768x1o+768x1e+768x2o+768x2e | 3840 paths | 3840 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=5.53, trainable=True)
+              (1): MLP(64 → 64 → 64 → 3840, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=5.533, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0o+640x0e+128x1o+128x1e+128x2o+128x2e -> 128x0o+128x0e+128x1o+128x1e+128x2o+128x2e)
+        (post_message_linear): Linear(384x0o+384x0e+768x1o+768x1e+768x2o+768x2e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 688128 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e x 2x0e -> 128x0o+640x0e+128x1o+128x1e+128x2o+128x2e | 327680 paths | 327680 weights)
+        )
+      )
+    )
+    (energy_readout): LinearReadOut(128x0o+128x0e+128x1o+128x1e+128x2o+128x2e -> 1x0e | 128 weights)
+    (scaler): LocalEnergiesScaler({'O': 1.33, 'Si': 0.938}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableOffset): 2
+    nequip (NequIP)         : 6,449,538
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 1.046971321105957
+[graph-pes DEBUG]: Model saved to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18032802641391754
+[graph-pes DEBUG]: Model saved to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.12603573501110077
+[graph-pes DEBUG]: Model saved to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.11439570784568787
+[graph-pes DEBUG]: Model saved to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10847267508506775
+[graph-pes DEBUG]: Model saved to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08535347133874893
+[graph-pes DEBUG]: Model saved to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07154438644647598
+[graph-pes DEBUG]: Model saved to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/NequIP-L40S-MAE-batch1-9012782/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/NequIP-L40S-MAE-batch1-9012782/checkpoints/best.ckpt"

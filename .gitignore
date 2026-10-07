@@ -1,7 +1,6 @@
 .venv/
 .ipynb_checkpoints/
 __pycache__/
-graph-pes-results/
 *.out
 *.err
 .DS_Store
