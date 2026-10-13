@@ -1,0 +1,3 @@
+Model,Run,Best checkpoint epoch,Last checkpoint epoch,Last global step,Planned max epochs,Learnable parameters,Layers,Features,Cutoff (Å),Training batch size,Energy loss,Initial LR,Seed,Export matches best
+03 · SchNet,lossratio_and_learnedOffsets-9004704,244,300,60000,300,61786,3,64,5.0,4,RMSE (default),0.001,42,True
+05 · Kavanagh-Med,Kavanagh-Med-9059603,297,300,60000,300,737792,4,"{'edge_irreps': '1x0e + 1x1o + 1x2e', 'node_irreps': '128x0e + 64x1o + 32x2e'}",6.0,1,MSE,0.003,42,True

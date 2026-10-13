@@ -9,7 +9,7 @@ model:
       elements: ["Si", "O"]
       cutoff: 6.0
       layers: 4
-      radial_features: 64 # Why did Chiheb use this no. in his tutorial?
+      radial_features: 64 # Why did Chiheb use this no. in his tutorial - could be optimised
       features:
         node_irreps : "128x0e + 64x1o + 32x2e"
         edge_irreps : "1x0e + 1x1o + 1x2e"
