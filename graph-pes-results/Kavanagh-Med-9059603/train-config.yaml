@@ -1,0 +1,83 @@
+data:
+  test: null
+  train:
+    path: data/train.xyz
+    property_map:
+      QM_energy: energy
+      QM_forces: forces
+    shuffle: true
+  valid:
+    path: data/valid.xyz
+    property_map:
+      QM_energy: energy
+      QM_forces: forces
+fitting:
+  auto_fit_reference_energies: false
+  callbacks: []
+  early_stopping:
+    patience: 300
+  early_stopping_patience: null
+  keep: best
+  loader_kwargs:
+    batch_size: 1
+    num_workers: 0
+    persistent_workers: false
+    pin_memory: false
+  lr_warmup_steps: null
+  max_n_pre_fit: 5000
+  optimizer:
+    lr: 0.003
+    name: AdamW
+  pre_fit_model: true
+  scheduler:
+    factor: 0.8
+    name: ReduceLROnPlateau
+    patience: 25
+  swa: null
+  trainer_kwargs:
+    accelerator: gpu
+    accumulate_grad_batches: 4
+    devices: 1
+    enable_model_summary: false
+    log_every_n_steps: 10
+    max_epochs: 300
+    precision: 32-true
+general:
+  log_level: INFO
+  progress: logged
+  root_dir: graph-pes-results
+  run_id: Kavanagh-Med-9059603
+  seed: 42
+  torch:
+    dtype: float32
+    float32_matmul_precision: high
+loss:
+  energy:
+    +PerAtomEnergyLoss:
+      metric: MSE
+      weight: 1000.0
+  forces:
+    +PropertyLoss:
+      metric: MSE
+      property: forces
+      weight: 100.0
+model:
+  nequip:
+    +NequIP:
+      cutoff: 6.0
+      direct_force_predictions: false
+      elements:
+      - Si
+      - O
+      features:
+        edge_irreps: 1x0e + 1x1o + 1x2e
+        node_irreps: 128x0e + 64x1o + 32x2e
+      layers: 4
+      prune_last_layer: true
+      radial_features: 64
+  offset: +LearnableOffset()
+wandb:
+  entity: trin4011-university-of-oxford
+  log_model: false
+  name: Kavanagh-Med-9059603
+  project: transfer-learning

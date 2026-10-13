@@ -1,0 +1,359 @@
+[graph-pes INFO]: Logging to graph-pes-results/Kavanagh-Med-9059603/rank-0.log
+[graph-pes INFO]: ID for this training run: Kavanagh-Med-9059603
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/Kavanagh-Med-9059603
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="Kavanagh-Med-9059603",
+  log_model=False,
+  id="Kavanagh-Med-9059603",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [OffsetLogger(root=graph-pes-results/Kavanagh-Med-9059603), ScalesLogger(root=graph-pes-results/Kavanagh-Med-9059603), <graph_pes.training.callbacks.ModelTimer object at 0x149f9cfdfb10>, SaveBestModel(root=graph-pes-results/Kavanagh-Med-9059603), <graph_pes.training.callbacks.LoggedProgressBar object at 0x149fa7b82d10>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x149facdbbd10>, EarlyStoppingWithLogging(root=graph-pes-results/Kavanagh-Med-9059603), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x149f9ceb06d0>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x149f9cf127d0>]
+[graph-pes DEBUG]: 
+Model:
+AdditionModel(
+  offset=LearnableOffset(trainable=True),
+  nequip=NequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (energy_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalEnergiesScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(800, properties=['forces', 'energy']),
+  valid=ASEToGraphDataset(50, properties=['forces', 'energy'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.003)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+PerAtomEnergyLoss("energy", metric=MSE())
+PropertyLoss("forces", metric=MSE())
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 800 structures with cutoff 6.0, property mapping {'QM_energy': 'energy', 'QM_forces': 'forces'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'QM_energy': 'energy', 'QM_forces': 'forces'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 800 samples
+[graph-pes DEBUG]: Attempting to pre-fit LearnableOffset
+[graph-pes WARNING]: 
+We are attempting to guess the mean per-element
+contribution for a per-structure quantity (usually
+the total energy). 
+
+However, the composition of the training set is such that 
+no unique solution is possible. 
+
+This is probably because you are training on structures
+all with the same composition (e.g. all structures are
+of the form n H2O). Consider explicitly setting the
+per-element contributions if you know them, or
+including a variety of structures of different
+compositions in the training set.
+
+[graph-pes DEBUG]: Per-element means: {8: -421.2230529785156, 14: -210.6115264892578}
+[graph-pes DEBUG]: Per-element variances: {8: 1.7598543167114258, 14: 0.879980742931366}
+[graph-pes WARNING]: 
+Estimated per-element energy offsets from the training data:
+    PerElementParameter(trainable=True)
+This will lead to a lack of guaranteed physicality in the model, 
+since the energy of an isolated atom (and hence the behaviour of 
+this model in the dissociation limit) is not guaranteed to be 
+correct. Use a FixedOffset energy offset model if you require
+and know the reference energy offsets.
+
+[graph-pes DEBUG]: Attempting to pre-fit NequIP
+[graph-pes WARNING]: 
+We are attempting to guess the mean per-element
+contribution for a per-structure quantity (usually
+the total energy). 
+
+However, the composition of the training set is such that 
+no unique solution is possible. 
+
+This is probably because you are training on structures
+all with the same composition (e.g. all structures are
+of the form n H2O). Consider explicitly setting the
+per-element contributions if you know them, or
+including a variety of structures of different
+compositions in the training set.
+
+[graph-pes DEBUG]: Per-element means: {8: -421.2230529785156, 14: -210.6115264892578}
+[graph-pes DEBUG]: Per-element variances: {8: 1.7598543167114258, 14: 0.879980742931366}
+[graph-pes DEBUG]: 
+Model:
+AdditionModel(
+  offset=LearnableOffset({'O': -421.0, 'Si': -211.0}, trainable=True),
+  nequip=NequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (energy_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalEnergiesScaler({'O': 1.33, 'Si': 0.938}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableOffset): 2
+    nequip (NequIP)         : 738,050
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 140.86630249023438
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 14.11697006225586
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 5.078311920166016
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 2.8772764205932617
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 1.6374106407165527
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9088245630264282
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8850135803222656
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5236347317695618
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.4207540452480316
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.40373694896698
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2925984859466553
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2561994194984436
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2548793852329254
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23825864493846893
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2042493373155594
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20147454738616943
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17071497440338135
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15128521621227264
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.14861176908016205
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1279839128255844
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.12756603956222534
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.11126658320426941
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10741207748651505
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10427805036306381
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10336045920848846
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09648881107568741
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09469533711671829
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.088901586830616
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08771604299545288
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08741647005081177
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08496815711259842
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08387277275323868
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08101122081279755
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08083827793598175
+[graph-pes DEBUG]: Model saved to graph-pes-results/Kavanagh-Med-9059603/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/Kavanagh-Med-9059603/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/Kavanagh-Med-9059603/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
