@@ -1,0 +1,75 @@
+general:
+  seed: 42
+  progress: logged
+
+model:
+  +shielding_transfer.from_energy_force_model:
+    checkpoint: graph-pes-results/Kavanagh-Med-9059603/model.pt
+    model:
+      +extract_ms_isotropy.ScalarTensorAdditionModel:
+        offset:
+          +LearnableTensorOffset:
+            length: 1
+        nequip:
+          +TensorNequIP:
+            elements: ["Si", "O"]
+            cutoff: 6.0
+            layers: 4
+            radial_features: 64
+            features:
+              node_irreps: "128x0e + 64x1o + 32x2e"
+              edge_irreps: "1x0e + 1x1o + 1x2e"
+            prune_last_layer: true
+            props: tensor
+            target_method: direct
+            # Adapter for the pruned constructor/readout in graph-pes 1.0.2.
+            # One invariant scalar per atom, not a nine-component shielding tensor.
+            target_tensor_irreps:
+              +extract_ms_isotropy.ScalarTarget: {}
+
+data:
+  train:
+    path: data/nmr_iso/train.xyz
+    property_map: {MS_Iso_QM: tensor}
+    shuffle: true
+  valid:
+    path: data/nmr_iso/valid.xyz
+    property_map: {MS_Iso_QM: tensor}
+  test: null
+
+loss:
+  isotropy:
+    +PropertyLoss:
+      property: tensor
+      metric: MSE
+      # Retain the original scalar-loss weight; forces are no longer targets.
+      # This is per-atom MSE in ppm^2, with no additional division by atom count.
+      weight: 1000.0
+
+fitting:
+  trainer_kwargs:
+    accelerator: auto
+    devices: 1
+    max_epochs: 300
+    log_every_n_steps: 10
+  loader_kwargs:
+    batch_size: 4
+    num_workers: 4
+    persistent_workers: true
+    pin_memory: true
+  optimizer:
+    name: AdamW
+    lr: 0.0001
+  scheduler:
+    name: ReduceLROnPlateau
+    patience: 25
+    factor: 0.8
+  early_stopping:
+    patience: 100
+  keep: best
+
+wandb:
+  entity: trin4011-university-of-oxford
+  project: transfer-learning
+  name: nequip-startingpoint
+  log_model: false
