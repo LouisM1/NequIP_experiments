@@ -3,7 +3,7 @@ general:
   progress: logged
 
 model:
-  +extract_ms_isotropy.ScalarTensorAdditionModel:
+  +nmr_helpers.extract_ms_isotropy.ScalarTensorAdditionModel:
     offset:
       +LearnableTensorOffset:
         length: 1
@@ -22,7 +22,7 @@ model:
         # Adapter for the pruned constructor/readout in graph-pes 1.0.2.
         # One invariant scalar per atom, not a nine-component shielding tensor.
         target_tensor_irreps:
-          +extract_ms_isotropy.ScalarTarget: {}
+          +nmr_helpers.extract_ms_isotropy.ScalarTarget: {}
 
 data:
   train:

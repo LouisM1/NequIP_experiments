@@ -1,7 +1,7 @@
 """Prepare scalar NMR labels and support their graph-pes 1.0.2 pre-fitting.
 
 From the experiment directory:
-    .venv/bin/python extract_ms_isotropy.py
+    .venv/bin/python -m nmr_helpers
     .venv/bin/python -m graph_pes.scripts.train configs/07-TensorNequIP-MSIsotropy.yaml
 
 Defaults: read data/{raw,train,valid,test}.xyz and write separate copies to
@@ -9,8 +9,8 @@ Defaults: read data/{raw,train,valid,test}.xyz and write separate copies to
 frame/atom order, tensors, energies, forces and metadata are retained. No
 referencing or sign change is applied: the target is trace(ms)/3.
 
-The YAML imports ScalarTensorAdditionModel from this file, so keep this file
-beside the configs/ and data/ directories, including when copying to ARC.
+The YAML imports ScalarTensorAdditionModel from nmr_helpers. Keep the whole
+nmr_helpers/ package beside configs/ and data/, including when copying to ARC.
 """
 from __future__ import annotations
 
