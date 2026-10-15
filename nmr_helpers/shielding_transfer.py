@@ -10,7 +10,12 @@ import torch
 from graph_pes.models import NequIP, TensorNequIP
 
 
-def from_energy_force_model(model, checkpoint):
+def from_energy_force_model(model, checkpoint, freeze_backbone=False):
+    """Copy the E/F backbone; optionally freeze it for head-only transfer.
+
+    The fresh shielding readout, offsets and scales stay trainable.
+    The default preserves experiment 09's full-model fine-tuning.
+    """
     path = Path(checkpoint)
     source = torch.load(path, map_location='cpu', weights_only=False)
     old = source.models['nequip']
@@ -38,10 +43,17 @@ def from_energy_force_model(model, checkpoint):
     for name in parts:
         getattr(new, name).load_state_dict(getattr(old, name).state_dict(), strict=True)
     model.requires_grad_(True)
+    if freeze_backbone:
+        for name in parts:
+            getattr(new, name).requires_grad_(False)
     model.train()
     if model._has_been_pre_fit.item():
         raise ValueError('Destination must be a fresh, un-prefitted shielding model')
     print(f'Transferred NequIP embeddings and {len(new.layers)} layers from {path}', flush=True)
     print(f'Source SHA256: {hashlib.sha256(path.read_bytes()).hexdigest()}', flush=True)
-    print('Fresh shielding readout, offsets and scales; all layers trainable.', flush=True)
+    if freeze_backbone:
+        print('Frozen embeddings and interaction layers; only fresh shielding '
+              'readout, offsets and scales trainable.', flush=True)
+    else:
+        print('Fresh shielding readout, offsets and scales; all layers trainable.', flush=True)
     return model

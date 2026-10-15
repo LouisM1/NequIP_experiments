@@ -1,0 +1,84 @@
+# Experiment 11: copy experiment 06 embeddings/interactions and freeze them.
+# Train only the fresh shielding readout plus per-element offsets/scales.
+# Offsets/scales are initialised from training shielding labels, as in 09.
+# Explicit fitting settings match the effective experiment-09 ARC config.
+# train.sbatch sets the GPU and appends the job ID to the run name.
+
+general:
+  seed: 42
+  progress: logged
+
+model:
+  +nmr_helpers.shielding_transfer.from_energy_force_model:
+    checkpoint: graph-pes-results/Kavanagh-Med-9059603/model.pt
+    freeze_backbone: true
+    model:
+      +nmr_helpers.extract_ms_isotropy.ScalarTensorAdditionModel:
+        offset:
+          +LearnableTensorOffset:
+            length: 1
+        nequip:
+          +TensorNequIP:
+            elements: ["Si", "O"]
+            cutoff: 6.0
+            layers: 4
+            radial_features: 64
+            features:
+              node_irreps: "128x0e + 64x1o + 32x2e"
+              edge_irreps: "1x0e + 1x1o + 1x2e"
+            prune_last_layer: true
+            props: tensor
+            target_method: direct
+            # Adapter for the pruned constructor/readout in graph-pes 1.0.2.
+            # One invariant scalar per atom, not a nine-component shielding tensor.
+            target_tensor_irreps:
+              +nmr_helpers.extract_ms_isotropy.ScalarTarget: {}
+
+data:
+  train:
+    path: data/nmr_iso/train.xyz
+    property_map: {MS_Iso_QM: tensor}
+    shuffle: true
+  valid:
+    path: data/nmr_iso/valid.xyz
+    property_map: {MS_Iso_QM: tensor}
+  test: null
+
+loss:
+  isotropy:
+    +PropertyLoss:
+      property: tensor
+      metric: MSE
+      # Retain the original scalar-loss weight; forces are no longer targets.
+      # This is per-atom MSE in ppm^2, with no additional division by atom count.
+      weight: 1000.0
+
+fitting:
+  trainer_kwargs:
+    accelerator: auto
+    devices: 1
+    precision: 32-true
+    accumulate_grad_batches: 4
+    max_epochs: 300
+    log_every_n_steps: 10
+  loader_kwargs:
+    batch_size: 1
+    num_workers: 0
+    persistent_workers: false
+    pin_memory: false
+  optimizer:
+    name: AdamW
+    lr: 0.0001
+  scheduler:
+    name: ReduceLROnPlateau
+    patience: 25
+    factor: 0.8
+  early_stopping:
+    patience: 300
+  keep: best
+
+wandb:
+  entity: trin4011-university-of-oxford
+  project: transfer-learning
+  name: TensorNequIP-NMR-FrozenTransfer
+  log_model: false
