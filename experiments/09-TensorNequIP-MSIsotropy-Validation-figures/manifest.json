@@ -1,0 +1,72 @@
+{
+  "target": "trace(ms)/3 absolute isotropic shielding",
+  "units": "ppm",
+  "split": "validation only",
+  "structures": 50,
+  "atoms": 7200,
+  "data_sha256": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+  "runs": [
+    {
+      "run": "07",
+      "name": "TensorNequIP-NMR-9065266",
+      "best_epoch_1based": 188,
+      "model_sha256": "f2159b2fe9bd80147c46b55413c233cd616d825c976e75bf80de345f4104b32a",
+      "checkpoint_sha256": "4d93d7073e527b408e9450efbb289901e87670b2bfd9d2b183cdcb1bf31e490c",
+      "config_sha256": "7e510894939e38f50da45b5fb23dadcf0932b70a627f3661bda73e15d798a209",
+      "saved_valid_MSE": 3.731101318359375
+    },
+    {
+      "run": "08",
+      "name": "TensorNequIP-NMR-Coord3x-9083627",
+      "best_epoch_1based": 287,
+      "model_sha256": "e6b96cb04593adc1761b682a0d070a34c49c3de329493ef39016074ca6b625e6",
+      "checkpoint_sha256": "64f652c9275f83519bfb5f92eaf771e82d44920cac39fb1c88324a4f242b4199",
+      "config_sha256": "937013dd35accfa52183d1399e78b7c924bdd80094569b3d336f61ce46088063",
+      "saved_valid_MSE": 3.409656494140625
+    },
+    {
+      "run": "09",
+      "name": "TensorNequIP-NMR-FineTune-9086968",
+      "best_epoch_1based": 295,
+      "model_sha256": "7e18dc258296cb653861153d73cc11c029aa400b5de84ccffa948edc6bc59ab0",
+      "checkpoint_sha256": "3cf1c6d88ee65472f36e5418e097ca5ba29f4387d803ccf3b9a8e322acf01fbf",
+      "config_sha256": "ad1f675493d08e843fe0743b68bd8367f4563a77a02712e63a92f9f626d9186e",
+      "saved_valid_MSE": 3.1689208984375
+    }
+  ],
+  "versions": {
+    "torch": "2.6.0",
+    "graph-pes": "1.0.2",
+    "e3nn": "0.4.4",
+    "numpy": "2.4.6",
+    "ase": "3.29.0",
+    "scipy": "1.17.1",
+    "matplotlib": "3.11.2"
+  },
+  "helpers": {
+    "shielding_transfer.py": "49a41b602ef43a3873d689f882f1a2c47dcae9a62357153e477ff28b6d9843e8",
+    "coordination_loss.py": "4fba70673c05f74ba5cd83531f47c1a00914fb5c93bff6fc0f1e2a219d9406d1",
+    "__init__.py": "d8473fbcf1c14cb5479d3c36ffbc0a94a93566a25b9600757d0a8c1b46083d37",
+    "extract_ms_isotropy.py": "e22e6ebab1fbb34869c0ba73ffceb2542e96eae9e66f927dd70b653376d8d78f",
+    "__main__.py": "72ffa12ec0d87f0d3162fd39ba54ac45334d9d6476ca997a2dd3a54b0ed9d14f"
+  },
+  "bootstrap": {
+    "unit": "structure",
+    "paired": true,
+    "resamples": 4000,
+    "seed": 42
+  },
+  "coordination_cutoff_A": 2.2,
+  "illustrative_gaussian_sigma_ppm": 1.0,
+  "device": "CPU",
+  "torch_threads": 2,
+  "model_inputs": "species, positions, cell and periodicity; no target properties",
+  "test_set_accessed": false,
+  "figures": [
+    "01-overall-accuracy.png",
+    "02-finetuned-parity.png",
+    "03-shielding-distributions.png",
+    "04-error-tails.png",
+    "05-structures-and-environments.png"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "notebook": "09-TensorNequIP-MSIsotropy-Validation.ipynb",
+  "code_cells": 9,
+  "embedded_figures": 5,
+  "png_exports": 5,
+  "pdf_exports": 5,
+  "evaluation": "Fresh predictions for 3 models, 50 validation structures each, 7200 sites each; checkpoint equality and saved-loss agreement checked.",
+  "checks": [
+    "No notebook error outputs",
+    "Notebook sources compile",
+    "Five PNG outputs and five PDF exports",
+    "All figures visually inspected; tail tick labels and parity annotations corrected",
+    "Composition and subgroup squared-error accounting checked",
+    "Only validation XYZ permitted by execution audit hook",
+    "Figure 2 updated with element-specific validation MAE, RMSE and coefficient-of-determination R\u00b2; re-rendered from saved verified residuals."
+  ],
+  "notebook_sha256": "6bb7cb345c49a1d274cf030e092f466f3291e5686f1f871ffdf033943c1eaccc"
+}
