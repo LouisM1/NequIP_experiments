@@ -91,7 +91,7 @@ def structure_figure(structures,base,new,title,out,name):
   ax.plot([0,limit],[0,limit],'--',color='#727C83',lw=1)
   for idx in p[[base,new]].max(axis=1).nlargest(2).index:
    ax.annotate(str(idx),(p.loc[idx,base],p.loc[idx,new]),xytext=(6,7),textcoords='offset points',fontsize=9)
-  ax.set(xlim=(0,limit),ylim=(0,limit),aspect='equal',xlabel=f'{LABELS[base]} · RMSE (ppm)',ylabel=f'{LABELS[new]} · RMSE (ppm)',title=f'{el} · improves {int(improves.sum())}/50 structures')
+  ax.set(xlim=(0,limit),ylim=(0,limit),aspect='equal',xlabel=f'{LABELS[base]} · RMSE (ppm)',ylabel=f'{LABELS[new]} · RMSE (ppm)',title=el)
   ax.text(.04,.95,'Below diagonal = improvement',transform=ax.transAxes,va='top',fontsize=10);ax.grid(alpha=.12)
   ss=g.pivot(index='structure',columns='run',values='SSE');gain=ss[base]-ss[new];net=gain.sum();largest=gain.idxmax()
   rows.append(dict(element=el,structures_improved=int(improves.sum()),largest_contributor=int(largest),share_of_net_SSE_reduction_pct=100*gain.loc[largest]/net if net>0 else np.nan))
@@ -104,6 +104,6 @@ def parity_figure(sites,run,title,out,name):
   g=sites.query('split=="valid" and run==@run and element==@el');low=min(g.reference.min(),g.prediction.min());high=max(g.reference.max(),g.prediction.max());pad=(high-low)*.08
   ax.scatter(g.reference,g.prediction,color=COLORS[run],s=10,alpha=.3,edgecolors='none',rasterized=True)
   ax.plot([low-pad,high+pad],[low-pad,high+pad],'--',color='#515B64',lw=1.3)
-  ax.set(xlim=(low-pad,high+pad),ylim=(low-pad,high+pad),aspect='equal',xlabel='DFT shielding (ppm)',ylabel='Predicted shielding (ppm)',title=f'{el} · all {len(g):,} validation sites')
+  ax.set(xlim=(low-pad,high+pad),ylim=(low-pad,high+pad),aspect='equal',xlabel='DFT shielding (ppm)',ylabel='Predicted shielding (ppm)',title=el)
   ax.text(.04,.95,f'MAE {g.error.abs().mean():.2f} ppm\nRMSE {np.sqrt(np.mean(g.error**2)):.2f} ppm\nBias {g.error.mean():+.2f} ppm',transform=ax.transAxes,va='top',bbox=dict(facecolor='white',alpha=.9,edgecolor='none'))
  fig.suptitle(title,fontsize=17,weight='bold');save(fig,out,name)
