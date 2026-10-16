@@ -1,0 +1,214 @@
+[graph-pes INFO]: Logging to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508/rank-0.log
+[graph-pes INFO]: ID for this training run: TensorNequIP-NMR-FrozenTransfer-9115508
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="TensorNequIP-NMR-FrozenTransfer-9115508",
+  log_model=False,
+  id="TensorNequIP-NMR-FrozenTransfer-9115508",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [OffsetLogger(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508), ScalesLogger(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508), <graph_pes.training.callbacks.ModelTimer object at 0x1455adf9a4d0>, SaveBestModel(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508), <graph_pes.training.callbacks.LoggedProgressBar object at 0x1455adad3090>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x1455adad0090>, EarlyStoppingWithLogging(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1455adad3e50>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1455ac074f90>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(800, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.0001)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+PropertyLoss("tensor", metric=MSE())
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 800 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 800 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 202.0, 'Si': 436.0}, trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 19.2, 'Si': 8.79}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 130
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 122554.984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-FrozenTransfer-9115508/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...

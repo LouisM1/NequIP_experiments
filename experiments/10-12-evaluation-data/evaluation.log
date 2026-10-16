@@ -1,0 +1,52 @@
+{"run": "09", "directory": "TensorNequIP-NMR-FineTune-9086968", "best_epoch": 295, "last_epoch": 300, "export_matches_checkpoint": true, "checkpoint_selection_loss": 3168.9208984375, "summary_best_loss": 3168.9208984375, "runtime_minutes": 91.25735964913333, "initial_lr": 0.0001, "final_lr": 0.0001, "trainable_parameters": 738052, "frozen_backbone_matches_EF": null, "model_sha256": "7e18dc258296cb653861153d73cc11c029aa400b5de84ccffa948edc6bc59ab0", "checkpoint_sha256": "3cf1c6d88ee65472f36e5418e097ca5ba29f4387d803ccf3b9a8e322acf01fbf", "last_checkpoint_sha256": "273d1343fa5aa66f1f2039df040399368852f5fb6ffcde99348707efcc7fdc72", "config_sha256": "ad1f675493d08e843fe0743b68bd8367f4563a77a02712e63a92f9f626d9186e"}
+{"run": "10", "directory": "TensorNequIP-NMR-Scratch-LR1e-4-9115507", "best_epoch": 288, "last_epoch": 300, "export_matches_checkpoint": true, "checkpoint_selection_loss": 5005.64990234375, "summary_best_loss": 5005.64990234375, "runtime_minutes": 91.89993085965001, "initial_lr": 0.0001, "final_lr": 8e-05, "trainable_parameters": 738052, "frozen_backbone_matches_EF": null, "model_sha256": "c508bcf3b741ae20ba7d284f0f22492e72788ce44388287eb82be13eff086346", "checkpoint_sha256": "d7895861c5fe9742e8be89fc5dd7aeda2a283fd21a1088bd1e908aa6ab88f76a", "last_checkpoint_sha256": "d7242d987da5f70ae54e04107c86d70fe2082a046965d5d2cadda3c8317e354a", "config_sha256": "8827732de8a06c5992ffff4235a1e5b633c9b930210841423c38394aee8c7fd6"}
+{"run": "11", "directory": "TensorNequIP-NMR-FrozenTransfer-9115508", "best_epoch": 300, "last_epoch": 300, "export_matches_checkpoint": false, "checkpoint_selection_loss": 156114.921875, "summary_best_loss": 122554.984375, "runtime_minutes": 37.07958579053333, "initial_lr": 0.0001, "final_lr": 0.0001, "trainable_parameters": 132, "frozen_backbone_matches_EF": true, "model_sha256": "1447e7eeb8d9a35cadebf71993a8a96be6351592ccaee3bc15a23689d5b6001d", "checkpoint_sha256": "aad983952723f44a0485c1f714a192828933037b2ce23947d564cc889925f834", "last_checkpoint_sha256": "7fbb544bfccde579fc434db75700a1e84268fb0cdbb26b17b820b7cf18cc21c2", "config_sha256": "c630732a26b4dbb5ad8a7f08cb72046e95ec59689bfe16d7f2a84125e4074af4"}
+{"run": "12", "directory": "TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945", "best_epoch": 297, "last_epoch": 300, "export_matches_checkpoint": true, "checkpoint_selection_loss": 61865.9765625, "summary_best_loss": 61865.9765625, "runtime_minutes": 66.20474963021667, "initial_lr": 0.003, "final_lr": 0.003, "trainable_parameters": 132, "frozen_backbone_matches_EF": true, "model_sha256": "14a9fd8b817985771f15fe8237a9548aaec512bb6265bd0e361a59f7ad17dee8", "checkpoint_sha256": "d53f42c02a1e04eba82ccda151eed5a5cb5f0265dfe6da3f821af66aa2fcd024", "last_checkpoint_sha256": "4265d6c8d47cbf538b1773e6df2bed52e391e5835b6224dd1ff073dbb6dd46a6", "config_sha256": "ba4cacde87ee3ec88a8a31a8c0e0598afab1acecc55879c7e30d2c951b30ff62"}
+valid: 25/50 structures, 23.0s
+valid: 50/50 structures, 46.2s
+11 exported model first-two-structure loss: 119988.46080059664
+VALIDATION METRICS                          MAE       RMSE
+run       element                      
+09        O         0.956612   2.093018
+          Si        0.485797   0.861948
+10        O         1.286194   2.598547
+          Si        0.704238   1.236148
+11        O         9.345792  13.833648
+          Si        7.225524   9.253551
+11-export O        12.846037  19.796329
+          Si        7.114066   9.032294
+12        O         4.612925   7.226445
+          Si        7.085329   9.008671
+train: 25/800 structures, 22.6s
+train: 50/800 structures, 45.9s
+train: 75/800 structures, 69.2s
+train: 100/800 structures, 93.0s
+train: 125/800 structures, 118.1s
+train: 150/800 structures, 142.6s
+train: 175/800 structures, 166.7s
+train: 200/800 structures, 192.3s
+train: 225/800 structures, 216.8s
+train: 250/800 structures, 242.6s
+train: 275/800 structures, 267.5s
+train: 300/800 structures, 292.4s
+train: 325/800 structures, 319.3s
+train: 350/800 structures, 341.7s
+train: 375/800 structures, 363.1s
+train: 400/800 structures, 384.8s
+train: 425/800 structures, 406.4s
+train: 450/800 structures, 432.4s
+train: 475/800 structures, 458.9s
+train: 500/800 structures, 480.4s
+train: 525/800 structures, 507.6s
+train: 550/800 structures, 532.6s
+train: 575/800 structures, 557.1s
+train: 600/800 structures, 583.0s
+train: 625/800 structures, 608.0s
+train: 650/800 structures, 633.5s
+train: 675/800 structures, 660.1s
+train: 700/800 structures, 686.6s
+train: 725/800 structures, 713.4s
+train: 750/800 structures, 736.0s
+train: 775/800 structures, 759.0s
+train: 800/800 structures, 780.0s
+ALL INFERENCE COMPLETE

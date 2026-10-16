@@ -1,0 +1,835 @@
+[graph-pes INFO]: Logging to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/rank-0.log
+[graph-pes INFO]: ID for this training run: TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945",
+  log_model=False,
+  id="TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [OffsetLogger(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945), ScalesLogger(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945), <graph_pes.training.callbacks.ModelTimer object at 0x1520d57d4dd0>, SaveBestModel(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945), <graph_pes.training.callbacks.LoggedProgressBar object at 0x1520d57d5cd0>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x1520d57d5b90>, EarlyStoppingWithLogging(root=graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1521d5fe8dd0>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1520d57d7cd0>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(800, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.003)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+PropertyLoss("tensor", metric=MSE())
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 800 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 800 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 202.0, 'Si': 436.0}, trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 19.2, 'Si': 8.79}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 130
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 122554.6953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 121075.8828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 118642.6484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 116398.0390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 114473.359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 112681.65625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 111032.2265625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 109353.46875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 108135.0
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 106738.9609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 105606.90625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 104609.03125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 103382.75
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 102415.2734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 101663.15625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 100751.546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 100001.203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 99121.7578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 98476.140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 97795.6875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 97013.8671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 96458.7109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 95821.65625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 95262.09375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 94765.8203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 94128.3203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 93490.90625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 93097.25
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 92557.0234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 92022.7578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 91693.0078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 91258.6171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 90720.3828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 90334.2421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 89811.6328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 89351.6171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 88900.9609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 88642.8515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 88146.5390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 87864.828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 87555.4765625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 87228.34375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 86776.296875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 86472.21875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 86099.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 85890.5703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 85545.3984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 85333.0390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 84861.6875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 84568.5234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 84288.609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 84134.109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 83720.59375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 83475.875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 83290.671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 83167.0390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 82664.203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 82378.1328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 82241.59375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 82089.4140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 81656.21875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 81569.2109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 81311.59375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 81102.8046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 80755.1484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 80587.28125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 80300.7421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 80147.3125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 79980.90625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 79778.34375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 79622.7578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 79343.59375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 79177.515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 78876.8984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 78735.2890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 78630.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 78475.2734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 78247.1484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 78139.4140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 77778.3515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 77714.9375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 77600.5625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 77203.1875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 76999.9921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 76824.546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 76553.921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 76380.28125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 76227.46875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 76114.7421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 76084.328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 75840.2109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 75689.6171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 75473.03125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 75281.859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 75243.8046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 75018.921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 74963.9609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 74944.796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 74721.1484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 74577.6328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 74457.5859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 74260.3125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73991.484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73875.5
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73575.1484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73390.75
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73357.453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73321.6328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73209.203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 73080.5703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 72867.7734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 72709.7421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 72503.15625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 72377.3046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 72245.421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 72113.1484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 72063.703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 71910.515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 71753.5703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 71666.2265625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 71437.9140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 71400.296875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 71177.1328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70960.8203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70778.96875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70641.390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70618.7578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70395.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70382.5390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70301.2734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 70221.53125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 69920.6328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 69869.671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 69726.0625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 69586.578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 69465.8828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 69273.703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 69171.6640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68990.0546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68977.96875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68842.0078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68616.84375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68384.578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68357.7734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68338.6171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 68145.671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67825.1328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67744.59375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67654.78125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67524.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67351.734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67327.6875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67244.4296875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67135.9375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 67001.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66839.90625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66744.3828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66737.9921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66488.328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66366.328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66359.8828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66132.0625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 66061.90625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65908.890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65818.65625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65729.03125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65624.203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65510.80859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65352.12890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65156.046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65075.26171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 65048.30859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64902.17578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64823.390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64756.38671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64550.109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64519.0
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64474.60546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64322.42578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64300.0859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64156.609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64096.5390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 64086.734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63958.4609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63846.4453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63736.3203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63673.546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63612.765625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63536.08984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63377.32421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63285.5859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63219.81640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63163.28515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 63124.96484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62963.42578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62839.46484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62835.1484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62762.15625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62728.37109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62586.05859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62503.4140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62397.9609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62349.03125
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62345.26171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62163.7109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 62118.98046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61914.81640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61865.9765625
+[graph-pes DEBUG]: Model saved to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...

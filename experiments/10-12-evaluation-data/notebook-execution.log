@@ -1,0 +1,25 @@
+0.00s - Debugger warning: It seems that frozen modules are being used, which may
+0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off
+0.00s - to python to disable frozen modules.
+0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.
+status
+10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation.ipynb cell 1 OK
+10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation.ipynb cell 3 OK
+10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation.ipynb cell 5 OK
+10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation.ipynb cell 7 OK
+EXECUTED 10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation.ipynb figures 2
+status
+11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation.ipynb cell 1 OK
+11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation.ipynb cell 2 OK
+11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation.ipynb cell 4 OK
+11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation.ipynb cell 6 OK
+11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation.ipynb cell 8 OK
+EXECUTED 11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation.ipynb figures 2
+status
+12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison.ipynb cell 1 OK
+12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison.ipynb cell 3 OK
+12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison.ipynb cell 5 OK
+12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison.ipynb cell 7 OK
+EXECUTED 12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison.ipynb figures 2
+Task was destroyed but it is pending!
+task: <Task cancelling name='Task-7' coro=<IOPubThread._run_event_pipe_gc() running at /Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/ipykernel/iostream.py:197> wait_for=<Future cancelled>>

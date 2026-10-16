@@ -1,0 +1,133 @@
+{
+  "executed_notebooks": 3,
+  "inline_figures": 6,
+  "png_exports": 6,
+  "pdf_exports": 6,
+  "test_accessed": false,
+  "files_verified": [
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation.ipynb",
+      "sha256": "03f97c24300dc6538152acf7d11b66f761deeec5c72ba3194ccbe3a156484e61"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation.ipynb",
+      "sha256": "2011df5e4609484208324eb646822646bbc53788c65567accda0593f2ba1547e"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison.ipynb",
+      "sha256": "1e975baff76395113b93d6566935179984b9f3ecb38a86cf4a429c77ccb655b9"
+    },
+    {
+      "file": "scalar_transfer_evaluate.py",
+      "sha256": "d79e8c98b4356cb09d0e5596b3d7622167ffff340de70ce1440837e325ff819b"
+    },
+    {
+      "file": "scalar_transfer_review.py",
+      "sha256": "8698640b3d4368331295193215a8d11cf2374b2615edcca4fb86d8f1fc614ede"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/provenance.csv",
+      "sha256": "2b69527fd82f82858b0c226e5422ae9e0852848b87283ba91ba68221738d31b7"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/metrics.csv",
+      "sha256": "d3d8df700bf8169a608b9a681a53261b2f552c209f86d2619190ab1faa397783"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/01-matched-accuracy.pdf",
+      "sha256": "c31944537d719415b54073c615a3e9027848f6960f0fa9193202a0ac1cbf2689"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/01-matched-accuracy-paired-changes.csv",
+      "sha256": "55c097b255e733186a245756994464a77b06c3fa00e1228a4084f653cd7efcc3"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/01-matched-accuracy.png",
+      "sha256": "d734bf535e0f10a1379608fdabfd0ee36eea887df254535a60867db7c65e1972"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/02-structure-comparison.png",
+      "sha256": "8b8b61f300a52ea4b8adbf1d55ebb7ef15c1159c7429d87e3dd40d1d0976aeb2"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/02-structure-comparison.pdf",
+      "sha256": "bb3a9367cd3ff837dccb4a11f447a77ac4439bb74059ad0dce8f6a4d57a487bc"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/02-structure-comparison-concentration.csv",
+      "sha256": "38cf3ae6e3121c5b723d92183e51e39de53aec53c8aa91789d386563118911fc"
+    },
+    {
+      "file": "10-TensorNequIP-MSIsotropy-Scratch-Control-Evaluation-figures/evaluation-manifest.json",
+      "sha256": "603c93405902f7c1047f40245a4406cf0d7e6018dba96ff0f383bbeb8afcd781"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/provenance.csv",
+      "sha256": "fdb327952e9d957df8dad12e2e6b5102f362f5360ebcaa16d6f83592448a86c9"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/metrics.csv",
+      "sha256": "0b0476d53fd39f7d0d35b7fc5ccdead7b507037637733a3af866c85d5f77447f"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/01-training-validation-gap-values.csv",
+      "sha256": "a068624145fb5c4df82fed53c0c5b56133e7de347805108af65319992d0faefb"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/01-training-validation-gap.pdf",
+      "sha256": "88c787d3df773e3c33ead2cb7087cacafce774754b2d8f7b5a96323f66066727"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/01-training-validation-gap.png",
+      "sha256": "f75f616cfc542e578ec2f7933860be602f85abe5a25c4814f8a9aa074197173b"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/02-frozen-parity.png",
+      "sha256": "2a2f5481aff859a7c241bde3b50553402141a359a7f162b608dabfc96b86eaf7"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/02-frozen-parity.pdf",
+      "sha256": "925db3d960d0f70fad6e9cc5c7cd4b2e61dadb96f699c9b11cf8184f7c612e92"
+    },
+    {
+      "file": "11-TensorNequIP-MSIsotropy-Frozen-Transfer-Evaluation-figures/evaluation-manifest.json",
+      "sha256": "603c93405902f7c1047f40245a4406cf0d7e6018dba96ff0f383bbeb8afcd781"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/02-remaining-gap.pdf",
+      "sha256": "8517de2ea0113d5523f908845888f9a619aed0e0dcf2a315c9faa9a993c826fb"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/01-learning-rate-effect.png",
+      "sha256": "2ed7c66d4d7caf66616604a3221ecde8e547fa9ca52f551e91de9396550b7b64"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/02-remaining-gap.png",
+      "sha256": "40ca72156038d8dc224f661dd74d52903ee57953f583af8094c3304f0efa987e"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/01-learning-rate-effect.pdf",
+      "sha256": "d1fd9b74cde207397f834dfc2f94e0daf359bfe11f639e221e10536f8b25bad3"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/provenance.csv",
+      "sha256": "294d5af55c02e0aef496b273ebc7c3ff4bb064eeb732f34a9339642efc16a015"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/metrics.csv",
+      "sha256": "388b59e37b9494d894c3c881f2d57c8582b94b5ad75535ee82311cb25d694d08"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/01-learning-rate-effect-paired-changes.csv",
+      "sha256": "fa6c6e642186bb41a4551b24062488bb6b363830580f82596b1ea4c65fce5a0b"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/evaluation-manifest.json",
+      "sha256": "603c93405902f7c1047f40245a4406cf0d7e6018dba96ff0f383bbeb8afcd781"
+    },
+    {
+      "file": "12-TensorNequIP-MSIsotropy-Frozen-LR-Comparison-figures/02-remaining-gap-values.csv",
+      "sha256": "b1d64924169a88df2d5b515b68ec0f97df641be373e719c18f55752dc68aed01"
+    }
+  ]
+}

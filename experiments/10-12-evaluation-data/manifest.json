@@ -1,0 +1,21 @@
+{
+  "data_sha256": {
+    "train": "77de1ed9983781e906c35aa63d4f134a0777c6e38a933791c6db866f8b9c6fda",
+    "valid": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11"
+  },
+  "EF_source_sha256": "9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec",
+  "counts": {
+    "train_structures": 800,
+    "valid_structures": 50,
+    "train_sites": 115200,
+    "valid_sites": 7200
+  },
+  "test_accessed": false,
+  "torch": "2.6.0",
+  "numpy": "2.4.6",
+  "inference": "CPU float32; metrics float64; four threads",
+  "frozen_inference": "Shared features after exact backbone equality; direct predictions cross-checked on validation structures 0,25,49.",
+  "primary_artifact": "checkpoints/best.ckpt loaded strictly into model.pt architecture; exported 11 additionally evaluated",
+  "evaluator_sha256": "ce1fc656f063feca9686f41037eeb4ea63a85db5d0674ea8a488a71da920e199",
+  "prediction_cache_sha256": "5f34b0a87b90881cfa60c08b2ee60bd3858b992accacba8b21fa6c99f1a6a7f2"
+}
