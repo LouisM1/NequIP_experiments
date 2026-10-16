@@ -105,5 +105,9 @@ def parity_figure(sites,run,title,out,name):
   ax.scatter(g.reference,g.prediction,color=COLORS[run],s=10,alpha=.3,edgecolors='none',rasterized=True)
   ax.plot([low-pad,high+pad],[low-pad,high+pad],'--',color='#515B64',lw=1.3)
   ax.set(xlim=(low-pad,high+pad),ylim=(low-pad,high+pad),aspect='equal',xlabel='DFT shielding (ppm)',ylabel='Predicted shielding (ppm)',title=el)
-  ax.text(.04,.95,f'MAE {g.error.abs().mean():.2f} ppm\nRMSE {np.sqrt(np.mean(g.error**2)):.2f} ppm\nBias {g.error.mean():+.2f} ppm',transform=ax.transAxes,va='top',bbox=dict(facecolor='white',alpha=.9,edgecolor='none'))
+  reference = g.reference.to_numpy(dtype=np.float64)
+  errors = g.prediction.to_numpy(dtype=np.float64) - reference
+  sst = np.sum((reference - reference.mean()) ** 2)
+  r_squared = 1 - np.sum(errors ** 2) / sst if sst > 0 else np.nan
+  ax.text(.04,.95,f'MAE = {np.mean(np.abs(errors)):.3f} ppm\nRMSE = {np.sqrt(np.mean(errors**2)):.3f} ppm\n$R^2$ = {r_squared:.4f}',transform=ax.transAxes,va='top',bbox=dict(facecolor='white',alpha=.9,edgecolor='none'))
  fig.suptitle(title,fontsize=17,weight='bold');save(fig,out,name)
