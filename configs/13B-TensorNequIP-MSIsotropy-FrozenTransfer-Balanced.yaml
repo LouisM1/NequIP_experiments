@@ -1,0 +1,90 @@
+# Experiment 13B: experiment 12 weights, fresh optimizer/scheduler state.
+# Same shared head and frozen backbone; balanced standardized Si/O loss.
+# 3000 new epochs. LR, decay, batching, scheduler and patience match 12.
+# train.sbatch sets the GPU and appends the job ID to the run name.
+
+general:
+  seed: 42
+  progress: logged
+
+model:
+  +nmr_helpers.shared_head_training.from_shielding_checkpoint:
+    checkpoint: graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/checkpoints/last.ckpt
+    model:
+      +nmr_helpers.shielding_transfer.from_energy_force_model:
+        checkpoint: graph-pes-results/Kavanagh-Med-9059603/model.pt
+        freeze_backbone: true
+        model:
+          +nmr_helpers.extract_ms_isotropy.ScalarTensorAdditionModel:
+            offset:
+              +LearnableTensorOffset:
+                length: 1
+            nequip:
+              +TensorNequIP:
+                elements: ["Si", "O"]
+                cutoff: 6.0
+                layers: 4
+                radial_features: 64
+                features:
+                  node_irreps: "128x0e + 64x1o + 32x2e"
+                  edge_irreps: "1x0e + 1x1o + 1x2e"
+                prune_last_layer: true
+                props: tensor
+                target_method: direct
+                # Adapter for the pruned constructor/readout in graph-pes 1.0.2.
+                # One invariant scalar per atom, not a nine-component shielding tensor.
+                target_tensor_irreps:
+                  +nmr_helpers.extract_ms_isotropy.ScalarTarget: {}
+
+data:
+  train:
+    path: data/nmr_iso/train.xyz
+    property_map: {MS_Iso_QM: tensor}
+    shuffle: true
+  valid:
+    path: data/nmr_iso/valid.xyz
+    property_map: {MS_Iso_QM: tensor}
+  test: null
+
+loss:
+  isotropy:
+    +nmr_helpers.shared_head_training.ElementBalancedMSE:
+      # Fixed population standard deviations from the full training split (ppm).
+      si_std: 8.789599019755547
+      o_std: 19.197689920683118
+      # Retain experiment 12's overall multiplier; balance inside the loss.
+      weight: 1000.0
+
+fitting:
+  callbacks:
+    - +nmr_helpers.shared_head_training.ElementRMSELogger: {}
+  trainer_kwargs:
+    accelerator: auto
+    devices: 1
+    precision: 32-true
+    accumulate_grad_batches: 4
+    max_epochs: 3000
+    # Avoid graph-pes 1.0.2 selecting an export from partial sanity validation.
+    num_sanity_val_steps: 0
+    log_every_n_steps: 10
+  loader_kwargs:
+    batch_size: 1
+    num_workers: 0
+    persistent_workers: false
+    pin_memory: false
+  optimizer:
+    name: AdamW
+    lr: 0.003
+  scheduler:
+    name: ReduceLROnPlateau
+    patience: 25
+    factor: 0.8
+  early_stopping:
+    patience: 300
+  keep: best
+
+wandb:
+  entity: trin4011-university-of-oxford
+  project: transfer-learning
+  name: 13B-TensorNequIP-NMR-Balanced
+  log_model: false

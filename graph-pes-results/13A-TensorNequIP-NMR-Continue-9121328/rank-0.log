@@ -1,0 +1,1081 @@
+[graph-pes INFO]: Logging to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/rank-0.log
+[graph-pes INFO]: ID for this training run: 13A-TensorNequIP-NMR-Continue-9121328
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="13A-TensorNequIP-NMR-Continue-9121328",
+  log_model=False,
+  id="13A-TensorNequIP-NMR-Continue-9121328",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [<nmr_helpers.shared_head_training.ElementRMSELogger object at 0x146279ab8e50>, OffsetLogger(root=graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328), ScalesLogger(root=graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328), <graph_pes.training.callbacks.ModelTimer object at 0x146288344d50>, SaveBestModel(root=graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328), <graph_pes.training.callbacks.LoggedProgressBar object at 0x1462883d4fd0>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x146279b819d0>, EarlyStoppingWithLogging(root=graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1462883d51d0>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x146288663f50>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(800, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.003)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+PropertyLoss("tensor", metric=MSE())
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 800 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 800 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 205.0, 'Si': 436.0}, trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 93.3, 'Si': -2.25}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 130
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 61858.73828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61757.71875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61591.9609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61582.21875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61480.37109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61464.140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61439.99609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61388.60546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61376.58984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61333.46875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61250.609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61112.4453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61075.3515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 61019.6015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60783.6640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60774.125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60684.9765625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60649.55859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60637.7109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60480.875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60470.44921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60385.0234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60344.796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60319.42578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60314.13671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60207.8515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60185.66015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 60052.625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59992.4609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59986.4609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59950.78125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59808.0703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59780.28125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59741.80859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59663.4609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59661.64453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59658.03125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59617.85546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59375.015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59251.23046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59233.44921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59151.4453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59102.09375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 59025.9609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58853.0703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58781.5390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58709.06640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58638.39453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58437.93359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58300.515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58252.37890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58211.57421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58185.44921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 58016.93359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57942.44921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57733.1484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57676.9453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57640.46875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57410.71875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57224.64453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57075.21875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 57055.4609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 56790.17578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 56724.37890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 56394.0390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 56273.66015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 56164.171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 56051.55078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 55869.1015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 55718.703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 55573.359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 55485.234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 55182.296875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 55107.76953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 55028.46484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 54785.6796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 54768.23828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 54515.3984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 54416.1796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 54202.18359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 54039.11328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 53943.0390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 53814.109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 53539.453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 53411.5
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 53152.0703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 52866.828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 52654.17578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 52185.125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 52052.55078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 51772.87890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 51734.87890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 51502.75390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 51498.50390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 51215.6796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 51164.64453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 50782.171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 50680.640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 50590.0234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 50468.234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 50299.5703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 50068.0234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 50034.82421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 49906.171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 49407.51953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 49215.9453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 49049.99609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 48869.3359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 48790.453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 48434.953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 48262.26171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 48168.1640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 47931.0703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 47599.63671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 47409.99609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 47350.625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 47230.06640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 46862.390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 46823.12890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 46419.921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 46371.453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 46231.5859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 46139.48828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 46072.8203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 45629.8359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 45511.3046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 45458.875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 45433.57421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 45191.2890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 45060.3359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44745.953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44646.5234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44645.890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44638.375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44407.0234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44355.109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44248.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44184.21484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44178.546875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44175.6015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 44072.78515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43873.4453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43790.12890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43787.7109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43729.73828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43401.015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43346.46875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43219.01171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 43121.88671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42989.8359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42835.671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42626.78515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42558.40625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42552.67578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42489.42578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42373.25390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42242.39453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42217.1015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42176.69140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42104.59375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 42086.8515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41861.8828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41790.62890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41720.7109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41714.86328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41620.3046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41593.38671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41484.3203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41392.828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41357.67578125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41297.4375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41274.6640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41175.625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41074.890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 41044.27734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40944.125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40919.00390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40799.27734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40756.2109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40679.5859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40507.12890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40474.75390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40425.6015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40346.234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40303.78515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40252.34375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40143.15625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40081.18359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 40059.1796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39969.65625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39941.73828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39916.89453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39804.890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39729.234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39557.31640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39523.44140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39497.25390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39402.703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39384.921875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39378.390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39310.93359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39297.15625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39287.40625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39234.5390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39167.84375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39121.0859375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39116.43359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39097.69140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39043.53515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 39007.1015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38924.94140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38888.2734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38829.94140625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38745.00390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38704.984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38666.55078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38637.02734375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38523.875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38494.15234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38455.91796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38398.07421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38314.015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38252.8125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38079.8984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38022.12890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 38003.53125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37875.24609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37861.99609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37844.13671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37689.0234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37655.4765625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37613.265625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37569.953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37557.8359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37512.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37388.11328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37353.65234375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37248.2265625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37180.828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37156.6640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37114.11328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37112.28125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37087.25390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37067.078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37026.01953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 37021.64453125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36988.8046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36881.2265625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36784.48046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36780.9765625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36757.53515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36742.328125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36650.48828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36615.33203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36611.9609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36610.484375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36550.0703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36513.828125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36486.20703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36472.8984375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36415.2890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36401.16796875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36362.09375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36342.59765625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36335.171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36321.8515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36320.38671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36319.421875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36254.95703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36230.359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36215.13671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36206.3515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36203.48046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36184.99609375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36154.359375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36111.25390625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36110.515625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36094.16015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36090.953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36077.7265625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36066.87109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36066.1953125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36055.12109375
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36053.6640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36039.1015625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36036.56640625
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36032.88671875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36012.203125
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36004.171875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 36001.98046875
+[graph-pes DEBUG]: Model saved to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...

@@ -7,7 +7,7 @@
 
 #SBATCH --job-name=nequip-medium
 #SBATCH --clusters=htc
-#SBATCH --partition=medium
+#SBATCH --partition=short
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
@@ -71,7 +71,8 @@ import yaml
 from graph_pes.config.shared import instantiate_config_from_dict, parse_model, parse_loss
 from graph_pes.config.training import TrainingConfig
 from graph_pes.data.loader import GraphDataLoader
-from graph_pes.scripts.train import train_from_config, trainer_from_config
+from graph_pes.scripts.train import trainer_from_config
+from nmr_helpers.shared_head_training import train_from_config
 from graph_pes.scripts.utils import configure_general_options, get_data_from_cli_arg
 from graph_pes.training.opt import Optimizer
 from graph_pes.training.tasks import TrainingTask, get_all_eval_metrics
@@ -112,13 +113,11 @@ if sys.argv[1] != "--resume":
     run_id = f"{run_name}-{os.environ['SLURM_JOB_ID']}"
     # Physical batch 1 bounds the batch-dependent startup/training memory.
     # Accumulation averages four structures before each optimizer update.
-    # Patience 300 prevents plateau stopping before max_epochs=300 while
-    # preserving the default stop on non-finite validation loss.
+    # The epoch ceiling comes from the YAML, including for long continuations.
     overrides = [
         "fitting/trainer_kwargs/accelerator=gpu",
         "fitting/trainer_kwargs/devices=1",
         "fitting/trainer_kwargs/precision=32-true",
-        "fitting/trainer_kwargs/max_epochs=300",
         "fitting/trainer_kwargs/accumulate_grad_batches=4",
         "fitting/early_stopping/patience=300",
         "fitting/loader_kwargs/batch_size=1",
