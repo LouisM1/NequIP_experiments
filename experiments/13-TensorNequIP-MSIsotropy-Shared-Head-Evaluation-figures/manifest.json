@@ -1,0 +1,34 @@
+{
+  "files_sha256": {
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/model.pt": "14a9fd8b817985771f15fe8237a9548aaec512bb6265bd0e361a59f7ad17dee8",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/checkpoints/best.ckpt": "d53f42c02a1e04eba82ccda151eed5a5cb5f0265dfe6da3f821af66aa2fcd024",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/checkpoints/last.ckpt": "4265d6c8d47cbf538b1773e6df2bed52e391e5835b6224dd1ff073dbb6dd46a6",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/train-config.yaml": "ba4cacde87ee3ec88a8a31a8c0e0598afab1acecc55879c7e30d2c951b30ff62",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945/summary.yaml": "701b6d3c3766b5068a0b9acc5f78c7ab959878d94829291f27bd0db89d6045f6",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt": "e9cf63750c22af11c708d1813a1b40d01ebe2d20511cb45450def79e4b56a276",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/checkpoints/best.ckpt": "786b653b58961dfcd673a5b878fdba372aa62644df0799d4a2bde613dd1781be",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/checkpoints/last.ckpt": "31c389ce15881847430d32c08fe64573607e16959796515c4c31053eef22d637",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/train-config.yaml": "738ec6e847b5790d5d1a325ad58f0737c525b466f6bcce003b6d785433884554",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/summary.yaml": "567c2872b6600b653f2f40fa425db78f0ca48a4f8fb0a03361b70612aed8ecfa",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/model.pt": "f645a1a4e43d83ff9c3e2e3bbd9e8976a69195d4a7b7581f1f87cc19547ad35f",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/checkpoints/best.ckpt": "4fe30e4ee4cb59c12da494d320332c8afdfaae605fe57f2c604ff073afba9ff7",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/checkpoints/last.ckpt": "d4bc4abc6b3ed723f84318ca2c220760fafef34fe3437bb3fb0cbc272ab81195",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/train-config.yaml": "69bd6ee1517dfe4d1e7588fcd483dab00d34e642c33f1cfa383f3a584fb08da7",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/summary.yaml": "6ac75d98e1c9ab302b3cd1ee841d2cf92213a717d8a532d66833004cc7013065",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/valid.xyz": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/train.xyz": "77de1ed9983781e906c35aa63d4f134a0777c6e38a933791c6db866f8b9c6fda"
+  },
+  "test_accessed": false,
+  "all_frozen_backbones_identical": true,
+  "fresh_validation_structures": 50,
+  "cached_training_structures": 800,
+  "direct_forward_crosschecks": [
+    0,
+    25,
+    49
+  ],
+  "validation_objectives_match_checkpoint_scores": true,
+  "relative_loss_tolerance_cpu_vs_gpu": 0.0005,
+  "primary_artifact": "best.ckpt, loaded strictly; last.ckpt evaluated separately",
+  "prediction_sha256": "7167a87970e48a45acad5f8aec4c9ba75f928cc3ad67a2597391310dd43ce156"
+}

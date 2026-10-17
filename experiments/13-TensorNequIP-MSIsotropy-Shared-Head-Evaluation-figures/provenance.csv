@@ -1,0 +1,4 @@
+run,directory,best_epoch,last_epoch,max_epochs,checks_since_best,runtime_hours,final_lr,export_matches_best,selected_loss
+12,TensorNequIP-NMR-FrozenTransfer-LR3e-3-9115945,297,300,300,3,1.1034124938369445,0.003,True,61865.9765625
+13A,13A-TensorNequIP-NMR-Continue-9121328,1948,2248,3000,300,4.702351564681667,1.1333679558887166e-05,True,36001.98046875
+13B,13B-TensorNequIP-NMR-Balanced-9121329,2567,2867,3000,300,7.09263419505,3.713820117856148e-06,True,150.6981964111328
