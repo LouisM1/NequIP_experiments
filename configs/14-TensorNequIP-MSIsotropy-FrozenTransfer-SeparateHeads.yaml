@@ -1,9 +1,9 @@
 # Experiment 14: independent O/Si linear heads, frozen experiment-06 backbone.
 # Transfer ONLY the E/F backbone; randomly initialise both NMR readout heads.
 # No NMR-trained weights or optimizer/scheduler state are transferred.
-# 256 independent readout weights + 2 elemental offsets = 258 active parameters.
-# Scales are fixed training-set standard deviations, NOT learned parameters.
-# Offsets are initialised from the training-label means in normal pre-fitting.
+# 256 readout weights + 2 learned scales + 2 learned offsets = 260 parameters.
+# As before, scales/offsets start at training-label standard deviations/means.
+# Loss normalisation uses FIXED training variances, independent of learned scales.
 # Copy nmr_helpers/element_heads.py to ARC with this config and existing helpers.
 # The only required input checkpoint is experiment-06 model.pt below.
 # Use train.sbatch so run naming and resumable optimizer ordering are preserved.
@@ -14,8 +14,6 @@ general:
 
 model:
   +nmr_helpers.element_heads.fresh_element_heads:
-    si_std: 8.789599019755547
-    o_std: 19.197689920683118
     model:
       +nmr_helpers.shielding_transfer.from_energy_force_model:
         checkpoint: graph-pes-results/Kavanagh-Med-9059603/model.pt
@@ -53,14 +51,14 @@ data:
 loss:
   isotropy:
     +nmr_helpers.shared_head_training.ElementBalancedMSE:
-      # Identical objective to 13B: 1000 * mean of Si/O standardized MSEs.
+      # Same relative elemental weighting as 13B; remove its x1000 multiplier.
       # Both elements occur in every structure in this fixed-composition dataset.
       si_std: 8.789599019755547
       o_std: 19.197689920683118
-      weight: 1000.0
+      weight: 1.0
 
 fitting:
-  # Use the complete training split for initial elemental offsets.
+  # Use the complete training split for initial elemental offsets and scales.
   pre_fit_model: true
   max_n_pre_fit: null
   callbacks:
@@ -82,9 +80,9 @@ fitting:
   optimizer:
     name: AdamW
     lr: 0.003
-    # Explicitly disable AdamW's default 0.01 decay. Fit the unregularized
-    # affine-head objective used by our earlier separate-linear-head probes.
-    weight_decay: 0.0
+    # Same 0.01 decay as experiments 12/13 (previously AdamW's implicit default).
+    # graph-pes excludes elemental scales and offsets from weight decay.
+    weight_decay: 0.01
   scheduler:
     name: ReduceLROnPlateau
     patience: 25

@@ -4,29 +4,22 @@ Keep this module on the Python path when training or loading model.pt.
 The two columns of the linear readout are independent heads; the scaler
 selects only the column corresponding to the central atom's element.
 """
-import math
-
 import torch
 from e3nn import o3
 from graph_pes.atomic_graph import AtomicGraph
+from graph_pes.models.components.scaling import LocalTensorScaler
 from graph_pes.utils.nn import PerElementParameter
 
-class ElementHeadScaler(torch.nn.Module):
-    """Route two scalar outputs to O/Si and apply fixed training-set scales."""
+class ElementHeadScaler(LocalTensorScaler):
+    """Route O/Si outputs, retaining the existing trainable elemental scales."""
 
-    def __init__(self, si_std: float, o_std: float):
-        super().__init__()
-        # Deliberately not a LocalTensorScaler: the existing scalar pre-fit
-        # adapter would overwrite that class's fixed scales with subset stats.
-        self.per_element_scaling = PerElementParameter.of_length(1, requires_grad=False)
+    def __init__(self):
+        super().__init__(length=1)
         self.register_buffer("head_index", torch.full((119,), -1, dtype=torch.long))
         self.head_index[8] = 0
         self.head_index[14] = 1
         with torch.no_grad():
-            self.per_element_scaling.zero_()
-            self.per_element_scaling[8] = o_std
-            self.per_element_scaling[14] = si_std
-        self.per_element_scaling.requires_grad_(False)
+            self.per_element_scaling.fill_(1.0)
         self.per_element_scaling.register_elements([8, 14])
 
     def forward(self, outputs: torch.Tensor, graph: AtomicGraph) -> torch.Tensor:
@@ -38,24 +31,15 @@ class ElementHeadScaler(torch.nn.Module):
         selected = outputs.gather(1, indices.unsqueeze(1)).squeeze(1)
         return selected * self.per_element_scaling[graph.Z].reshape(-1)
 
-    def pre_fit(self, graphs: AtomicGraph):
-        # Fixed, full-training-split statistics are supplied by the config.
-        pass
-
-    def non_decayable_parameters(self):
-        return [self.per_element_scaling]
-
-
-def fresh_element_heads(model, si_std, o_std):
+def fresh_element_heads(model):
     """Attach independently initialised O/Si heads after E/F-only transfer.
 
     No NMR checkpoint is loaded. The configured experiment seed controls the
     two random e3nn linear weight columns. Offsets are initialised by the
-    normal training-only scalar pre-fit; fixed scales are preserved there.
-    Only the 256 readout weights and two active offsets are trainable.
+    normal training-only scalar pre-fit, which also initialises trainable
+    scales from the training standard deviations, as in earlier experiments.
+    256 readout weights, two scales and two offsets are trainable: 260 total.
     """
-    if not all(math.isfinite(s) and s > 0 for s in (si_std, o_std)):
-        raise ValueError("Training standard deviations must be positive and finite")
     if model._has_been_pre_fit.item():
         raise ValueError("Fresh heads require an un-prefitted destination model")
     nequip = model.models["nequip"]
@@ -67,7 +51,7 @@ def fresh_element_heads(model, si_std, o_std):
 
     # e3nn independently samples all 256 weights; no existing head is copied.
     new = o3.Linear(old.irreps_in, "2x0e").to(old.weight)
-    scaler = ElementHeadScaler(si_std, o_std).to(old.weight)
+    scaler = ElementHeadScaler().to(old.weight)
     with torch.no_grad():
         model.models["offset"]._offsets.zero_()
 
@@ -75,11 +59,12 @@ def fresh_element_heads(model, si_std, o_std):
     nequip.scaler = scaler
     model.requires_grad_(False)
     new.requires_grad_(True)
+    scaler.requires_grad_(True)
     model.models["offset"]._offsets.requires_grad_(True)
     for parameter in model.parameters():
         if isinstance(parameter, PerElementParameter):
             parameter.register_elements([8, 14])
-    print("Fresh independent O/Si heads; 258 active trainable parameters. "
-          "E/F backbone and training-set scales are fixed; no NMR weights loaded.",
+    print("Fresh independent O/Si heads; 260 active trainable parameters. "
+          "E/F backbone frozen; elemental scales/offsets trainable. No NMR weights loaded.",
           flush=True)
     return model
