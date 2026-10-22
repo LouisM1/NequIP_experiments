@@ -1,0 +1,10 @@
+{
+  "run": "TensorNequIP-NMR-Coord3x-9083627",
+  "best_epoch": 287,
+  "description": "Direct NMR training, coordination-defect weight 3x; unweighted validation metrics",
+  "sha256": {
+    "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/valid.xyz": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-Coord3x-9083627/model.pt": "e6b96cb04593adc1761b682a0d070a34c49c3de329493ef39016074ca6b625e6",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/TensorNequIP-NMR-Coord3x-9083627/checkpoints/best.ckpt": "64f652c9275f83519bfb5f92eaf771e82d44920cac39fb1c88324a4f242b4199"
+  }
+}

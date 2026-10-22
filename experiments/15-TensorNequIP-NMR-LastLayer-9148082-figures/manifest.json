@@ -1,0 +1,27 @@
+{
+  "input_sha256": {
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/model.pt": "31aa2d3f3db3a3ebaa3c0975eb77aec37ddce5af04bb0a0dc3990da8be4e90d4",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/checkpoints/best.ckpt": "73bf70a791ad0c92448e812ca335afc80086240bc059a9287c580aaf9648b8b6",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/checkpoints/last.ckpt": "fd9e5f4c9062b2b0b5e829a7c064fc40d42bf798d057732849551750c21c24e1",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/train-config.yaml": "c3a353eb279d1dafd397b8f838cf6eb3e0548eb3b7fc07211904e903e197f7be",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/summary.yaml": "6842bbe3b29897627d55c6a6685f0b31c40f331719695af0aa92472cda3501b5",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/valid.xyz": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/Kavanagh-Med-9059603/model.pt": "9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec"
+  },
+  "provenance": {
+    "best_epoch": 283,
+    "last_epoch": 583,
+    "checks_since_best": 300,
+    "saved_best_loss": 0.020748309791088104,
+    "initial_lr": 0.003,
+    "frozen_embeddings_and_first_three_layers_verified": true,
+    "final_layer_changed": true,
+    "export_matches_best": true
+  },
+  "evaluated_split": "validation",
+  "structures": 50,
+  "recomputed_best_loss": 0.020741676821124228,
+  "training_or_test_labels_read": false,
+  "comparison_source": "/Users/louismcauliffe/code/research/NequIP_experiments/experiments/14-TensorNequIP-NMR-SeparateHeads-9136987-figures/metrics.csv",
+  "comparison_source_sha256": "4f682b4a0133c2259742035fecc11fcbc79719545691049b6ff8f0a84864a5b8"
+}
