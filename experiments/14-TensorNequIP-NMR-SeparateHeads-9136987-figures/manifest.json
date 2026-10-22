@@ -1,0 +1,56 @@
+{
+  "files_sha256": {
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/model.pt": "e9cf63750c22af11c708d1813a1b40d01ebe2d20511cb45450def79e4b56a276",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/checkpoints/best.ckpt": "786b653b58961dfcd673a5b878fdba372aa62644df0799d4a2bde613dd1781be",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/checkpoints/last.ckpt": "31c389ce15881847430d32c08fe64573607e16959796515c4c31053eef22d637",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13A-TensorNequIP-NMR-Continue-9121328/train-config.yaml": "738ec6e847b5790d5d1a325ad58f0737c525b466f6bcce003b6d785433884554",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/model.pt": "f645a1a4e43d83ff9c3e2e3bbd9e8976a69195d4a7b7581f1f87cc19547ad35f",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/checkpoints/best.ckpt": "4fe30e4ee4cb59c12da494d320332c8afdfaae605fe57f2c604ff073afba9ff7",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/checkpoints/last.ckpt": "d4bc4abc6b3ed723f84318ca2c220760fafef34fe3437bb3fb0cbc272ab81195",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/13B-TensorNequIP-NMR-Balanced-9121329/train-config.yaml": "69bd6ee1517dfe4d1e7588fcd483dab00d34e642c33f1cfa383f3a584fb08da7",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/14-TensorNequIP-NMR-SeparateHeads-9136987/model.pt": "f883a415f52799909e192a9c9b25321a43a61b7256688b13ee9440363471fe10",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/14-TensorNequIP-NMR-SeparateHeads-9136987/checkpoints/best.ckpt": "da03c5eb26fac3397ef65dd3c764791c908b0ecf698f7ca4076f441fb421e8a4",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/14-TensorNequIP-NMR-SeparateHeads-9136987/checkpoints/last.ckpt": "49da6ae37a3c07d14755926b645ca65918b76f6fb1d80291cf2d623c2817e305",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/14-TensorNequIP-NMR-SeparateHeads-9136987/train-config.yaml": "d85608ac9e1f7e94b365703eb9dea46a175a57d16277ab921adbfed0c35d7450",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/Kavanagh-Med-9059603/model.pt": "9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/valid.xyz": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/experiments/13-TensorNequIP-MSIsotropy-Shared-Head-Evaluation-figures/metrics.csv": "70c7558d7de7855016e4b0ca63f975536c7e676984bb6a698167a50fbb5cc3b5"
+  },
+  "evaluated_split": "validation",
+  "structures": 50,
+  "sites_per_model": {
+    "Si": 2400,
+    "O": 4800
+  },
+  "fresh_full_model_inference": true,
+  "backbone_matches_EF_source": {
+    "13A/best": true,
+    "13B/best": true,
+    "14/best": true,
+    "14/last": true
+  },
+  "no_training_performed": true,
+  "test_or_training_data_accessed": false,
+  "objective_checks": [
+    {
+      "run": "13A",
+      "recomputed": 35999.835401781536,
+      "saved": 36001.98046875
+    },
+    {
+      "run": "13B",
+      "recomputed": 150.69605801961276,
+      "saved": 150.6981964111328
+    },
+    {
+      "run": "14",
+      "recomputed": 0.10786328433920007,
+      "saved": 0.10787356644868851
+    }
+  ],
+  "previous_13_metrics_reproduced": true,
+  "cpu_vs_gpu_objective_rtol": 0.0005,
+  "prediction_sha256": "1221fe789f3159cc78b47855a9e46c869f7e722a711a9d43deb70faf2b2de130",
+  "torch_version": "2.6.0",
+  "metrics_definition": "Atom-pooled RMSE and MAE; R2 = 1 - SSE/SST within each element; absolute DFT isotropic shieldings in ppm."
+}

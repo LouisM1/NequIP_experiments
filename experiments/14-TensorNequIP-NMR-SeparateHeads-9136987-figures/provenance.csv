@@ -1,0 +1,4 @@
+run,directory,best_epoch,last_epoch,best_step,last_step,max_epochs,checks_since_best,stopped_epoch,final_lr,export_matches_best,selected_loss
+13A,13A-TensorNequIP-NMR-Continue-9121328,1948,2248,389600,449600,3000,300,0,1.1333679558887166e-05,True,36001.98046875
+13B,13B-TensorNequIP-NMR-Balanced-9121329,2567,2867,513400,573400,3000,300,0,3.713820117856148e-06,True,150.6981964111328
+14,14-TensorNequIP-NMR-SeparateHeads-9136987,1972,1979,394400,395800,5000,7,0,8.444249301319689e-05,True,0.10787356644868851
