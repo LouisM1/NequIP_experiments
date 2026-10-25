@@ -1,0 +1,53 @@
+{
+  "input_sha256": {
+    "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/valid.xyz": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/Kavanagh-Med-9059603/model.pt": "9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/model.pt": "31aa2d3f3db3a3ebaa3c0975eb77aec37ddce5af04bb0a0dc3990da8be4e90d4",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/checkpoints/best.ckpt": "73bf70a791ad0c92448e812ca335afc80086240bc059a9287c580aaf9648b8b6",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/checkpoints/last.ckpt": "fd9e5f4c9062b2b0b5e829a7c064fc40d42bf798d057732849551750c21c24e1",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/train-config.yaml": "c3a353eb279d1dafd397b8f838cf6eb3e0548eb3b7fc07211904e903e197f7be",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/15-TensorNequIP-NMR-LastLayer-9148082/summary.yaml": "6842bbe3b29897627d55c6a6685f0b31c40f331719695af0aa92472cda3501b5",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt": "14f15b4f2610111cfeda891e862a1ab50d85573c2907f2621a4e3097a4ea38f3",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/checkpoints/best.ckpt": "ca98b81385d841a84d7ded716e6a65797823eb2b1fcac01c57bef3da54714135",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/checkpoints/last.ckpt": "ba7edf9a33260b2b8742db41e0d0f94255541919aae504ad65b6f783e6851fc2",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/train-config.yaml": "ad7db54635cba9334aaa3e2b38e124e21ba3834b566854cd873f9d414de3168c",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/summary.yaml": "c26f918dfa1cee26eb1168a27d75938983b831283c244ba2496fd3bc25b53b3b",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16B-TensorNequIP-NMR-Scratch-200-9149305/model.pt": "31122fd4978fec7b15d3528f4d7bf210ca1a50f3ec9f3925d73ec98be6b0fc63",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16B-TensorNequIP-NMR-Scratch-200-9149305/checkpoints/best.ckpt": "fac5f5776a81de38c2edec46fb747f2bea2a2a2d3f2da78e44b5a3cdbd5f65d5",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16B-TensorNequIP-NMR-Scratch-200-9149305/checkpoints/last.ckpt": "9df6f9cc6f79c5cf97b5d34e46876c6d6c3d784947394754429fcbab4e24d302",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16B-TensorNequIP-NMR-Scratch-200-9149305/train-config.yaml": "126fe03ae6ede7d098920875b3af1dd9bbca532a63a299cd7d1a10980d060e5b",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16B-TensorNequIP-NMR-Scratch-200-9149305/summary.yaml": "0976d62d4a801a399dbcd9b74e77b545d905d65f28aba853ad0ac333738d7083",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16C-TensorNequIP-NMR-LastLayer-50-9149380/model.pt": "681c34353464e97f4ea57e70900d6088267ec6efcee1c3247a4ab0f36b98dfe5",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16C-TensorNequIP-NMR-LastLayer-50-9149380/checkpoints/best.ckpt": "7daf07207e2acbc9abb9b06e5eae6fa080822f18046c08c6dc92e1c4062d1d95",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16C-TensorNequIP-NMR-LastLayer-50-9149380/checkpoints/last.ckpt": "9b4d28ca88a51e0524614e71fc0d8a06eb75cc8aeee1a35c83913ae1fd856a14",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16C-TensorNequIP-NMR-LastLayer-50-9149380/train-config.yaml": "b4dab7cd29ad62997fcb99cb9228d15b4016df4e65c01e2efbae38888a215ddb",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16C-TensorNequIP-NMR-LastLayer-50-9149380/summary.yaml": "b1d5bf19ecdb2073a7c643870722dac5df8356dd5b29bb913005c78d4b7668b9",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16D-TensorNequIP-NMR-Scratch-50-9149381/model.pt": "341881363cb57556a06af200fcf5a876faadf5822003e8a80ff78343703d954d",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16D-TensorNequIP-NMR-Scratch-50-9149381/checkpoints/best.ckpt": "53e7c1688a13626a21dff582443227fbf9f6f9beb0decc3523a007564b7750d0",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16D-TensorNequIP-NMR-Scratch-50-9149381/checkpoints/last.ckpt": "bd773c8b4742323fd8abca847c135fdcd54a488a4c8268cc294cdb6120f4745c",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16D-TensorNequIP-NMR-Scratch-50-9149381/train-config.yaml": "2be32dcc3db0b8089c8a4ec5202fd45e4e9dade46654edc12670c0c958186854",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/16D-TensorNequIP-NMR-Scratch-50-9149381/summary.yaml": "d233d4512f6001f32f9ad8c75c534ccbdd2c4c3be0f69f66ff29a8ef5166c06e"
+  },
+  "runs": {
+    "15": "15-TensorNequIP-NMR-LastLayer-9148082",
+    "16A": "16A-TensorNequIP-NMR-LastLayer-200-9149304",
+    "16B": "16B-TensorNequIP-NMR-Scratch-200-9149305",
+    "16C": "16C-TensorNequIP-NMR-LastLayer-50-9149380",
+    "16D": "16D-TensorNequIP-NMR-Scratch-50-9149381"
+  },
+  "evaluated_split": "validation",
+  "validation_structures": 50,
+  "Si_sites": 2400,
+  "O_sites": 4800,
+  "fresh_predictions_for_all_five_runs": true,
+  "training_or_test_labels_read": false,
+  "saved_loss_relative_tolerance": 0.0005,
+  "metrics": "Unweighted per-element atom-pooled RMSE, MAE and R2; ppm for errors",
+  "subset_evidence": "Saved configs match n and seed within pairs; subset nesting was verified during config smoke checks.",
+  "limitations": [
+    "Single subset and training seed",
+    "Validation split used for checkpoint selection",
+    "Transfer and scratch differ in trainable layers",
+    "Fixed loss constants were originally estimated from all 800 training structures"
+  ]
+}

@@ -1,0 +1,361 @@
+[graph-pes INFO]: Logging to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/rank-0.log
+[graph-pes INFO]: ID for this training run: 16A-TensorNequIP-NMR-LastLayer-200-9149304
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="16A-TensorNequIP-NMR-LastLayer-200-9149304",
+  log_model=False,
+  id="16A-TensorNequIP-NMR-LastLayer-200-9149304",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [<nmr_helpers.shared_head_training.ElementRMSELogger object at 0x148e1156d190>, OffsetLogger(root=graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304), ScalesLogger(root=graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304), <graph_pes.training.callbacks.ModelTimer object at 0x148df8bd3c50>, SaveBestModel(root=graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304), <graph_pes.training.callbacks.LoggedProgressBar object at 0x14901c728a10>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x14901d14a890>, EarlyStoppingWithLogging(root=graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x148df8f12050>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x148df8bd3fd0>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(200, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.003, weight_decay=0.01)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+ElementBalancedMSE()
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 200 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 200 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 201.0, 'Si': 436.0}, trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 19.5, 'Si': 8.84}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 141,378
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 0.3450469970703125
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.202433243393898
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.12572705745697021
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10216569155454636
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09427694231271744
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08310505002737045
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07921112328767776
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07288342714309692
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06843575090169907
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06475202739238739
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0611807219684124
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05614519491791725
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05489423871040344
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.052060939371585846
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.051902759820222855
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05111918970942497
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04879806190729141
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.048128508031368256
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04580017924308777
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0451950803399086
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04301101714372635
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04281960427761078
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04093097522854805
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04030465707182884
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03988355025649071
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03900955617427826
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.038915298879146576
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03828497231006622
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03786204382777214
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03686543554067612
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03677043318748474
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03600325062870979
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03594338893890381
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03567919135093689
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03525126725435257
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03402477875351906
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03367045894265175
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03266782686114311
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.032339826226234436
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.032209090888500214
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.032186344265937805
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03207896649837494
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03171404451131821
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.031167905777692795
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.031001431867480278
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.030910758301615715
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.030722415074706078
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.030307719483971596
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.030090799555182457
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.029925091192126274
+[graph-pes DEBUG]: Model saved to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/16A-TensorNequIP-NMR-LastLayer-200-9149304/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
