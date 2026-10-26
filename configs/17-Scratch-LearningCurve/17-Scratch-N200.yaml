@@ -1,0 +1,93 @@
+# Experiment 17: Scratch learning curve, 200 training structures.
+# Random initialisation; all model parameters trainable.
+# Independent fresh run; no NMR-trained checkpoint or optimizer state reused.
+# Existing experiment 15/16 settings; maximum epochs reduced to 3000.
+# Suggested RUN_NAME: 17-TensorNequIP-NMR-Scratch-N200
+
+general:
+  seed: 42
+  progress: logged
+
+model:
+  +nmr_helpers.extract_ms_isotropy.ScalarTensorAdditionModel:
+    offset:
+      +LearnableTensorOffset:
+        length: 1
+    nequip:
+      +TensorNequIP:
+        elements: ["Si", "O"]
+        cutoff: 6.0
+        layers: 4
+        radial_features: 64
+        features:
+          node_irreps: "128x0e + 64x1o + 32x2e"
+          edge_irreps: "1x0e + 1x1o + 1x2e"
+        prune_last_layer: true
+        props: tensor
+        target_method: direct
+        target_tensor_irreps:
+          +nmr_helpers.extract_ms_isotropy.ScalarTarget: {}
+
+data:
+  train:
+    path: data/nmr_iso/train.xyz
+    property_map: {MS_Iso_QM: tensor}
+    shuffle: true
+    # Same seed-42 subset of 200 structures across all three methods.
+    n: 200
+    seed: 42
+  valid:
+    path: data/nmr_iso/valid.xyz
+    property_map: {MS_Iso_QM: tensor}
+  test: null
+
+loss:
+  isotropy:
+    +nmr_helpers.shared_head_training.ElementBalancedMSE:
+      # Keep experiment 15's fixed loss weights unchanged across all learning-curve runs.
+      # These constants were originally estimated from the full training split.
+      si_std: 8.789599019755547
+      o_std: 19.197689920683118
+      weight: 1.0
+
+fitting:
+  # Pre-fit elemental offsets and scales on the selected 200 structures only.
+  pre_fit_model: true
+  max_n_pre_fit: null
+  callbacks:
+    - +nmr_helpers.shared_head_training.ElementRMSELogger: {}
+  trainer_kwargs:
+    accelerator: auto
+    devices: 1
+    precision: 32-true
+    accumulate_grad_batches: 4
+    # Ceiling, not a target duration. Validation early stopping is retained.
+    max_epochs: 3000
+    num_sanity_val_steps: 0
+    log_every_n_steps: 10
+  loader_kwargs:
+    batch_size: 1
+    num_workers: 0
+    persistent_workers: false
+    pin_memory: false
+  optimizer:
+    name: AdamW
+    # Retain the experiment 15/16 optimizer settings.
+    # One learning rate; retain the existing decay / no-decay groups.
+    lr: 0.003
+    # Same 0.01 decay as experiments 12/13 (previously AdamW's implicit default).
+    # graph-pes excludes elemental scales and offsets from weight decay.
+    weight_decay: 0.01
+  scheduler:
+    name: ReduceLROnPlateau
+    patience: 25
+    factor: 0.8
+  early_stopping:
+    patience: 300
+  keep: best
+
+wandb:
+  entity: trin4011-university-of-oxford
+  project: transfer-learning
+  name: 17-TensorNequIP-NMR-Scratch-N200
+  log_model: false
