@@ -1,5 +1,5 @@
 {
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "input_sha256": {
     "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/valid.xyz": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N10-9189913/train-config.yaml": "2e0234dc37d016cf54269e6b3d11721a75b2e11aa82d98cf4ad210ac84d19aca",
@@ -23,9 +23,9 @@
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N800-9189901/checkpoints/best.ckpt": "5b603d31af2c82a0592563a21f32d5fe38a87cac751ab5b6592c73aeaa5dbb9f",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N800-9189901/checkpoints/last.ckpt": "34888f2005e49650ec48ea9a1218fea4e3abd292ae1b54f5314ea713875a287a",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/train-config.yaml": "b2e5435ab9a3a217edc3dd240c8b5c89264c9c9a3c44a3d83b5a3a49ea82ea0e",
-    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/model.pt": "77c960861db9d331feef384b8b005582b9971783bf6efb71d11543f3ea4f8d56",
-    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/checkpoints/best.ckpt": "1369386c052d79cca8996bcbb42a55e5f9257363a3dcbc70e24e61cc2282f7bc",
-    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/checkpoints/last.ckpt": "6d2a578012ab8de73be87911e5f253fa22bd2eea64c1a6f6539bc0107738e7ea",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/model.pt": "acc33481897a41af8313b6057f93dce391528b99fe63f2d1d376ba1cf9d31e49",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/checkpoints/best.ckpt": "89b7621e1217dea32302f8385b94caca05c9bdd9ad6ccebea265dc38999a4245",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/checkpoints/last.ckpt": "beaeee5a265d896cf5e834be89d2a0260b3c00e9b60f49eef7dbccb346abd44c",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N100-9189908/train-config.yaml": "60e81e9c06c9d8a02d022adcdd433ac53beec4c549549b27d8d4f300c06cae45",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N100-9189908/model.pt": "ebc7cedbdf294217a5e6b4b93983a230828074f41a3a4cb072b2916ec9bf9a00",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N100-9189908/checkpoints/best.ckpt": "359cdedf8a28a4aece22663a18ac00e55b5cdd56a5d1bc6dd3cc05af57974181",
@@ -35,9 +35,9 @@
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N200-9189905/checkpoints/best.ckpt": "3e8e4156a280cad0a6032aeaf1bc4a455a9070036b389cea7d5ecddb87e8f202",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N200-9189905/checkpoints/last.ckpt": "eff813fe5eaafa55e5f003f1ba89a088a0810954ad790f55eb18738ed6c47bd1",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/train-config.yaml": "75c38d23dc7bc21567c94842229e5aa4db90445fcabbba728b430fed8b22091f",
-    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/model.pt": "e87e01aedcbf91f782be2fa3eb860d596ff82fe4270be5f04ee0295094d10aac",
-    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/checkpoints/best.ckpt": "937b6d49882f541f0227d4c1725bc33f02042e3107547e48fc073de5f06394d1",
-    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/checkpoints/last.ckpt": "12216034a9e39f637d2268d879a10bf2ad7f79e3c9c90cf635ca24554e7a1a18",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/model.pt": "4d9802345d7130d687099bf14df7e15ffeb609a1e34595034100d3f58a3182fb",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/checkpoints/best.ckpt": "cd8365064c375cacef7aef9401063de4dcfc207e4803dd53cd66223db93cac38",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/checkpoints/last.ckpt": "c696e3b934e09d000ae7626e8333ce602afde79127a63d22fb1c29eb3ecb25f3",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N800-9189902/train-config.yaml": "fb8a89d63d69f57f79e37fcbf38bac18412d08b511f40aff90a98132c6888452",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N800-9189902/model.pt": "50e486013b0b1938d3d5352e1fa24b62060c5f04f8ae6e731c28576e35b9c070",
     "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N800-9189902/checkpoints/best.ckpt": "1a2329036c27d1e33db479c6d19d8771051708ce1c6e67ad8b694adfea69a793",
@@ -69,7 +69,7 @@
       "wandb_state": "finished",
       "complete_epochs": 362,
       "history_sha256": "407fe343b79c08001bb3e310f4fff631e76664f1290891f81e58022e6428339f",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N10-9189913.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/17-Scratch-N10-9189913.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "17-Scratch-N50-9189910": {
@@ -77,7 +77,7 @@
       "wandb_state": "finished",
       "complete_epochs": 390,
       "history_sha256": "9d939b2d89689e3c5242ff3cb0dc74783ce5d141f796c189d5100715c77641ea",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N50-9189910.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/17-Scratch-N50-9189910.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "17-Scratch-N100-9189907": {
@@ -85,7 +85,7 @@
       "wandb_state": "finished",
       "complete_epochs": 410,
       "history_sha256": "258a83f857c7256b5a4110441a759729218532479910d08433c1f9b0f8af2af2",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N100-9189907.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/17-Scratch-N100-9189907.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "17-Scratch-N200-9189904": {
@@ -93,7 +93,7 @@
       "wandb_state": "finished",
       "complete_epochs": 414,
       "history_sha256": "8aab680e46ae9ba36bf73c82be19e557cf35df2c3ce68fb43958a956edde1163",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N200-9189904.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/17-Scratch-N200-9189904.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "17-Scratch-N800-9189901": {
@@ -101,23 +101,23 @@
       "wandb_state": "finished",
       "complete_epochs": 537,
       "history_sha256": "8661082ee15599dd0f58acb60fdd8a8b31cb9fbcc4a61fcc3a11d006ee5d1f53",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N800-9189901.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/17-Scratch-N800-9189901.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "18-FrozenBackbone-N10-9189914": {
       "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/18-FrozenBackbone-N10-9189914",
       "wandb_state": "finished",
-      "complete_epochs": 1507,
-      "history_sha256": "0dd5ed18ba53cebde1a6d74cb693cd1e65b0b973332387e20d87c878e9252965",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N10-9189914.jsonl",
+      "complete_epochs": 3000,
+      "history_sha256": "5db008ea2be273ef756115d3182a69ca4ce038ddcaef29df6c77afeeccc51010",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/18-FrozenBackbone-N10-9189914.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "18-FrozenBackbone-N50-9189911": {
       "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/18-FrozenBackbone-N50-9189911",
       "wandb_state": "finished",
-      "complete_epochs": 1612,
-      "history_sha256": "b5e9ada72c52d7325fd83554a1a07db94d17a4b8156deb008422f4b004cfeade",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N50-9189911.jsonl",
+      "complete_epochs": 2851,
+      "history_sha256": "df5bab40e911e1e076cdcc2b0a16afc1165ea1b070f9f611a0df7be35f82219a",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/18-FrozenBackbone-N50-9189911.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "18-FrozenBackbone-N100-9189908": {
@@ -125,7 +125,7 @@
       "wandb_state": "finished",
       "complete_epochs": 3000,
       "history_sha256": "0239193fa672ba2d3cba65bd273df945681d4481b4fc9dadab6b4be940c607c8",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N100-9189908.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/18-FrozenBackbone-N100-9189908.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "18-FrozenBackbone-N200-9189905": {
@@ -133,7 +133,7 @@
       "wandb_state": "finished",
       "complete_epochs": 3000,
       "history_sha256": "229fedf8d444a878b95f9cf8a513d1d754d8725124e0347cc003687aab9cb7aa",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N200-9189905.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/18-FrozenBackbone-N200-9189905.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "18-FrozenBackbone-N800-9189902": {
@@ -141,7 +141,7 @@
       "wandb_state": "finished",
       "complete_epochs": 1755,
       "history_sha256": "6b4fbd85edc0d6cabb07ab4b641dcae6a60ae9e10899bf17e951e8b5b8c0336e",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N800-9189902.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/18-FrozenBackbone-N800-9189902.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "19-LastLayerTransfer-N10-9189915": {
@@ -149,7 +149,7 @@
       "wandb_state": "finished",
       "complete_epochs": 716,
       "history_sha256": "5ca2735298d626ea7bb5029d03ab8545be06b56c00854481f6552ad8e61426eb",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N10-9189915.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/19-LastLayerTransfer-N10-9189915.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "19-LastLayerTransfer-N50-9189912": {
@@ -157,7 +157,7 @@
       "wandb_state": "finished",
       "complete_epochs": 556,
       "history_sha256": "df307ebd8d80e9eeee0343324c93160b01505b487f072292090cbd7983a72760",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N50-9189912.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/19-LastLayerTransfer-N50-9189912.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "19-LastLayerTransfer-N100-9189909": {
@@ -165,7 +165,7 @@
       "wandb_state": "finished",
       "complete_epochs": 446,
       "history_sha256": "215e6339da70742d8c790b3daec5d8b896fe62f5ca84ce542d0347126fe02df6",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N100-9189909.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/19-LastLayerTransfer-N100-9189909.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "19-LastLayerTransfer-N200-9189906": {
@@ -173,7 +173,7 @@
       "wandb_state": "finished",
       "complete_epochs": 496,
       "history_sha256": "cf286b33e8af905d858547d78a6338a7c314ae6e9b73bb0f33dfce3498efe95c",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N200-9189906.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/19-LastLayerTransfer-N200-9189906.jsonl",
       "checkpoint_minimum_matches_history": true
     },
     "19-LastLayerTransfer-N800-9189903": {
@@ -181,7 +181,7 @@
       "wandb_state": "finished",
       "complete_epochs": 605,
       "history_sha256": "095f95938e74c22b90d72e4213f97ea62b41141c1179e68939243fe9e15313d8",
-      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N800-9189903.jsonl",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/update-2026-10-27/histories/19-LastLayerTransfer-N800-9189903.jsonl",
       "checkpoint_minimum_matches_history": true
     }
   },
@@ -199,5 +199,13 @@
   "validation_structures": 50,
   "validation_sites": 7200,
   "frozen_runs_provisional": true,
-  "note": "W&B finished state does not imply early-stopping convergence. Partial final epochs are omitted. No test data evaluated."
+  "note": "W&B finished state does not imply early-stopping convergence. Partial final epochs are omitted. No test data evaluated.",
+  "refresh": {
+    "updated_runs": [
+      "18-FrozenBackbone-N10-9189914",
+      "18-FrozenBackbone-N50-9189911"
+    ],
+    "other_runs": "Previously evaluated results retained; all input hashes reverified",
+    "previous_comparison": "17-19-LearningCurve-figures/archive/2026-10-27-before-resume-update/17-19-data-efficiency.png"
+  }
 }

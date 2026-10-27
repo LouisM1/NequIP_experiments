@@ -40,7 +40,7 @@ def value(metrics,run,el,metric='RMSE',split='valid'):
  return float(metrics.query('run==@run and element==@el and split==@split')[metric].iloc[0])
 def save(fig,out,name):
  out=Path(out);out.mkdir(parents=True,exist_ok=True)
- fig.savefig(out/(name+'.png'),dpi=180,bbox_inches='tight');fig.savefig(out/(name+'.pdf'),bbox_inches='tight');plt.show();plt.close(fig)
+ fig.savefig(out/(name+'.png'),dpi=180,bbox_inches='tight');plt.show();plt.close(fig)
 def overview(prov,runs):
  cols=['run','best_epoch','initial_lr','trainable_parameters','export_matches_checkpoint']
  display(prov[prov.run.isin(runs)][cols].rename(columns={'run':'Experiment','best_epoch':'Selected epoch','initial_lr':'Initial LR','trainable_parameters':'Trainable parameters','export_matches_checkpoint':'Export matches checkpoint'}).set_index('Experiment'))

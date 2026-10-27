@@ -24,7 +24,7 @@ def load_tables(root):
 def _save(fig, out, name):
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
-    for extension in ('png', 'pdf'):
+    for extension in ('png',):
         fig.savefig(out / f'{name}.{extension}', dpi=180, bbox_inches='tight')
     plt.close(fig)
     return out / f'{name}.png'
