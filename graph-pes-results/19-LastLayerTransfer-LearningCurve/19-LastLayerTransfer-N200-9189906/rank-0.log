@@ -1,0 +1,343 @@
+[graph-pes INFO]: Logging to graph-pes-results/19-LastLayerTransfer-N200-9189906/rank-0.log
+[graph-pes INFO]: ID for this training run: 19-LastLayerTransfer-N200-9189906
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/19-LastLayerTransfer-N200-9189906
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="19-LastLayerTransfer-N200-9189906",
+  log_model=False,
+  id="19-LastLayerTransfer-N200-9189906",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [<nmr_helpers.shared_head_training.ElementRMSELogger object at 0x15105806d210>, OffsetLogger(root=graph-pes-results/19-LastLayerTransfer-N200-9189906), ScalesLogger(root=graph-pes-results/19-LastLayerTransfer-N200-9189906), <graph_pes.training.callbacks.ModelTimer object at 0x1510596dd310>, SaveBestModel(root=graph-pes-results/19-LastLayerTransfer-N200-9189906), <graph_pes.training.callbacks.LoggedProgressBar object at 0x150e4c5da0d0>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x1510596dcb10>, EarlyStoppingWithLogging(root=graph-pes-results/19-LastLayerTransfer-N200-9189906), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x150e4c515550>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1510596dc790>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(200, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.003, weight_decay=0.01)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+ElementBalancedMSE()
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 200 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 200 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 201.0, 'Si': 436.0}, trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 19.5, 'Si': 8.84}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 141,378
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 0.34507155418395996
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20244905352592468
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.12573431432247162
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10217338800430298
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09426812082529068
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08311578631401062
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07920603454113007
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07288958877325058
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06843547523021698
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0647561177611351
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06121129170060158
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05615601688623428
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05489196628332138
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05206415802240372
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05190008506178856
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05112925171852112
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04880208522081375
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04811044782400131
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04578695818781853
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04518473148345947
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04300176724791527
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04283570870757103
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0409407839179039
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.040292367339134216
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03987963870167732
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.039008382707834244
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03899811580777168
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.038946375250816345
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03888051211833954
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03668220341205597
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03650808706879616
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03523922339081764
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03481394052505493
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.033880650997161865
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03370501473546028
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03289114311337471
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.032284338027238846
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.032218221575021744
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03217856585979462
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03176654130220413
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.031490303575992584
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.031130351126194
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0305807925760746
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.030554965138435364
+[graph-pes DEBUG]: Model saved to graph-pes-results/19-LastLayerTransfer-N200-9189906/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/19-LastLayerTransfer-N200-9189906/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-N200-9189906/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...

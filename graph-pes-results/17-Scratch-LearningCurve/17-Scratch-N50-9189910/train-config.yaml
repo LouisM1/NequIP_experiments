@@ -1,0 +1,88 @@
+data:
+  test: null
+  train:
+    n: 50
+    path: data/nmr_iso/train.xyz
+    property_map:
+      MS_Iso_QM: tensor
+    seed: 42
+    shuffle: true
+  valid:
+    path: data/nmr_iso/valid.xyz
+    property_map:
+      MS_Iso_QM: tensor
+fitting:
+  auto_fit_reference_energies: false
+  callbacks:
+  - +nmr_helpers.shared_head_training.ElementRMSELogger: {}
+  early_stopping:
+    patience: 300
+  early_stopping_patience: null
+  keep: best
+  loader_kwargs:
+    batch_size: 1
+    num_workers: 0
+    persistent_workers: false
+    pin_memory: false
+  lr_warmup_steps: null
+  max_n_pre_fit: null
+  optimizer:
+    lr: 0.003
+    name: AdamW
+    weight_decay: 0.01
+  pre_fit_model: true
+  scheduler:
+    factor: 0.8
+    name: ReduceLROnPlateau
+    patience: 25
+  swa: null
+  trainer_kwargs:
+    accelerator: gpu
+    accumulate_grad_batches: 4
+    devices: 1
+    enable_model_summary: false
+    log_every_n_steps: 10
+    max_epochs: 3000
+    num_sanity_val_steps: 0
+    precision: 32-true
+general:
+  log_level: INFO
+  progress: logged
+  root_dir: graph-pes-results
+  run_id: 17-Scratch-N50-9189910
+  seed: 42
+  torch:
+    dtype: float32
+    float32_matmul_precision: high
+loss:
+  isotropy:
+    +nmr_helpers.shared_head_training.ElementBalancedMSE:
+      o_std: 19.197689920683118
+      si_std: 8.789599019755547
+      weight: 1.0
+model:
+  +nmr_helpers.extract_ms_isotropy.ScalarTensorAdditionModel:
+    nequip:
+      +TensorNequIP:
+        cutoff: 6.0
+        elements:
+        - Si
+        - O
+        features:
+          edge_irreps: 1x0e + 1x1o + 1x2e
+          node_irreps: 128x0e + 64x1o + 32x2e
+        layers: 4
+        props: tensor
+        prune_last_layer: true
+        radial_features: 64
+        target_method: direct
+        target_tensor_irreps:
+          +nmr_helpers.extract_ms_isotropy.ScalarTarget: {}
+    offset:
+      +LearnableTensorOffset:
+        length: 1
+wandb:
+  entity: trin4011-university-of-oxford
+  log_model: false
+  name: 17-Scratch-N50-9189910
+  project: transfer-learning

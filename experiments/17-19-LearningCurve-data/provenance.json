@@ -1,0 +1,203 @@
+{
+  "date": "2026-10-26",
+  "input_sha256": {
+    "/Users/louismcauliffe/code/research/NequIP_experiments/data/nmr_iso/valid.xyz": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N10-9189913/train-config.yaml": "2e0234dc37d016cf54269e6b3d11721a75b2e11aa82d98cf4ad210ac84d19aca",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N10-9189913/model.pt": "babc9e6cfa1c2c1cb59b79ba31ebefd58c75a1626d185185cd4f8e533038c8aa",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N10-9189913/checkpoints/best.ckpt": "11cd61e9b60a7272131f65430f6ac6730d49e36b206ab183d8ad93981df8e360",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N10-9189913/checkpoints/last.ckpt": "f66775ea908e998aacc8571af8e0e04640044eb1627d3e6ca555dbf4e8a86aa9",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N100-9189907/train-config.yaml": "23192ff24b65eb222865f3bd99a2a54eb04230f32326a75c62a2134e9f39497c",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N100-9189907/model.pt": "d1507fb03b06af8822dd1b9d21ad7d08f2d2b95b46320cb040fee3e689f183a9",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N100-9189907/checkpoints/best.ckpt": "8f46bdb9a51703983fdd3b69df2ac9ece10d120f04ed79ba74f4b843c4ab7c3c",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N100-9189907/checkpoints/last.ckpt": "4e73e85361246c967ee74adb6eadf0f3a63a78057271bafb41a30054174b97b4",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N200-9189904/train-config.yaml": "d5214ab237691dc5fbf19cedf17e4f4346f36eeda83e522d713295008686d569",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N200-9189904/model.pt": "5d1c45e16eaf961d57c1aab3b9f73e6081edbb8f9e8744218fd9d2c85fa02db5",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N200-9189904/checkpoints/best.ckpt": "c99bafda22f85fe348fb2088f4177d6609b17878010b15a7f2bb19695ea33e47",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N200-9189904/checkpoints/last.ckpt": "5743bcf6848cdd0131ffa43040e5c7d324a0e2988be38453e0e6c8c3f354ad50",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N50-9189910/train-config.yaml": "38352a6dad8a376381cfa8ceeb69fab59d292b9049a912ae3d3069ff7598a8db",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N50-9189910/model.pt": "a23ca871d235a91aa71502c4feb7e16805917e2a667709c3a0fb9ccf0bdd2a0c",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N50-9189910/checkpoints/best.ckpt": "34b9e6a66d3f6d59e2cb89b8f68bf681182bb34bb033cf71728039a36dc34491",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N50-9189910/checkpoints/last.ckpt": "4a557d6ccc13143f3ca3448783a47a72fe3aecc74b1f444227b726b4140d9f38",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N800-9189901/train-config.yaml": "655bfcffa3a8f9e301c3e6767a723a04b7c5dc38ddc617b62da0bd7efad7f846",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N800-9189901/model.pt": "98d4ff00c673e9917ed83bfdb6ca354511005289a9f366814e0b1226a274f64e",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N800-9189901/checkpoints/best.ckpt": "5b603d31af2c82a0592563a21f32d5fe38a87cac751ab5b6592c73aeaa5dbb9f",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/17-Scratch-LearningCurve/17-Scratch-N800-9189901/checkpoints/last.ckpt": "34888f2005e49650ec48ea9a1218fea4e3abd292ae1b54f5314ea713875a287a",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/train-config.yaml": "b2e5435ab9a3a217edc3dd240c8b5c89264c9c9a3c44a3d83b5a3a49ea82ea0e",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/model.pt": "77c960861db9d331feef384b8b005582b9971783bf6efb71d11543f3ea4f8d56",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/checkpoints/best.ckpt": "1369386c052d79cca8996bcbb42a55e5f9257363a3dcbc70e24e61cc2282f7bc",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N10-9189914/checkpoints/last.ckpt": "6d2a578012ab8de73be87911e5f253fa22bd2eea64c1a6f6539bc0107738e7ea",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N100-9189908/train-config.yaml": "60e81e9c06c9d8a02d022adcdd433ac53beec4c549549b27d8d4f300c06cae45",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N100-9189908/model.pt": "ebc7cedbdf294217a5e6b4b93983a230828074f41a3a4cb072b2916ec9bf9a00",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N100-9189908/checkpoints/best.ckpt": "359cdedf8a28a4aece22663a18ac00e55b5cdd56a5d1bc6dd3cc05af57974181",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N100-9189908/checkpoints/last.ckpt": "22363b30fa7d4e9184749571c92109be8c0139993afcc34a7f682f61a8ae9f99",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N200-9189905/train-config.yaml": "489c9ede6d4966ffd2c9451e94bde838123f0deebf20769c4040de6c9fb55f55",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N200-9189905/model.pt": "f52ba46510fecd9d161854f21f747ebea9bcd7bec1f210fac35d1efafcb150b3",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N200-9189905/checkpoints/best.ckpt": "3e8e4156a280cad0a6032aeaf1bc4a455a9070036b389cea7d5ecddb87e8f202",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N200-9189905/checkpoints/last.ckpt": "eff813fe5eaafa55e5f003f1ba89a088a0810954ad790f55eb18738ed6c47bd1",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/train-config.yaml": "75c38d23dc7bc21567c94842229e5aa4db90445fcabbba728b430fed8b22091f",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/model.pt": "e87e01aedcbf91f782be2fa3eb860d596ff82fe4270be5f04ee0295094d10aac",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/checkpoints/best.ckpt": "937b6d49882f541f0227d4c1725bc33f02042e3107547e48fc073de5f06394d1",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N50-9189911/checkpoints/last.ckpt": "12216034a9e39f637d2268d879a10bf2ad7f79e3c9c90cf635ca24554e7a1a18",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N800-9189902/train-config.yaml": "fb8a89d63d69f57f79e37fcbf38bac18412d08b511f40aff90a98132c6888452",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N800-9189902/model.pt": "50e486013b0b1938d3d5352e1fa24b62060c5f04f8ae6e731c28576e35b9c070",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N800-9189902/checkpoints/best.ckpt": "1a2329036c27d1e33db479c6d19d8771051708ce1c6e67ad8b694adfea69a793",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/18-FrozenBackbone-LearningCurve/18-FrozenBackbone-N800-9189902/checkpoints/last.ckpt": "9ac1872a10ef29b7dca96495411d50b57a497150247128661b560c719750b16f",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N10-9189915/train-config.yaml": "fa855175a65c30ac162cbe5c836cca3fac8bdc28b61538ed1f7d896030609568",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N10-9189915/model.pt": "b87f92015333aa10b5508727c09a3742ec1558c52a08007cf51a52f24394e45c",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N10-9189915/checkpoints/best.ckpt": "874e27fc85df24951eba03c434011232818b75dea87d4e8dbff30a3eca37b5f0",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N10-9189915/checkpoints/last.ckpt": "b3e546c333567c267e95e9dfbfe61cb0ad6e1a787fbef153a6de37a490aa0c84",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N100-9189909/train-config.yaml": "5cf5c367e63b507eaa1ec9777a9cf6e1e22ec56157f4f3e254f8686dbb0b179a",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N100-9189909/model.pt": "135df5968b6b65642d4e1de8cd5feb401d8e7cadabf133a9fb15f8cc9cc78e9a",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N100-9189909/checkpoints/best.ckpt": "ff2f27248c9897cec5d2af5808a8e6cef7f25fdc61b9849b57a39e25e932cfdd",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N100-9189909/checkpoints/last.ckpt": "3340182d81b892454d698f4a2e36ca1e4f7f93295dd4c81debbfc8c59cf774da",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N200-9189906/train-config.yaml": "7950a081b09c5c511a7df34a58fdbf33cf549d95f318a1b8ddfddd63e0c303a8",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N200-9189906/model.pt": "5b445c3aeda2ebd784a7facd29d1d9b270557624edd0a7fddb6153e96bd5c8f8",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N200-9189906/checkpoints/best.ckpt": "1c35b67c73ae2ee2df7c284d0a7b4aed714136e4595b38961f41815e19144f1c",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N200-9189906/checkpoints/last.ckpt": "b3d62ba4980934a472bff4b53d7f569ec445000723ebac04a8e80281ef6a614e",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N50-9189912/train-config.yaml": "8a3006e544dfe9d2b46f950728fea1bff46bfedb776a8da5488888f7c5d1d4ec",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N50-9189912/model.pt": "9e7b550e2c7862a61e72756400241adfa53ea446456d07a64921a07d3dcf0869",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N50-9189912/checkpoints/best.ckpt": "948580b8f29b72516dd94ad46e16778d7516bc804141d4ce9ab379f5b7e0cc59",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N50-9189912/checkpoints/last.ckpt": "ae0d382b6821ff14eebba9c6e598eb4ab8fd12d4686a9cddfa6ff6e7122245f2",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N800-9189903/train-config.yaml": "606179b0037d2594cf5acaca36c955ad3e01cb5eb38c2d7879836777914faa62",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N800-9189903/model.pt": "3f7d7ba2e75ce61d7e59d0aef7588a17d8df6665be2ce9451dc1431fc53b414a",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N800-9189903/checkpoints/best.ckpt": "bf6eb1d918a58abeb9fb595fa2343dea236a52bb4fa2842a03f68c233d1acdaf",
+    "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N800-9189903/checkpoints/last.ckpt": "a4c9ce315bbda450807ad79001bf407225f7740ad9951402c6a261b66af4c8ae"
+  },
+  "histories": {
+    "17-Scratch-N10-9189913": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/17-Scratch-N10-9189913",
+      "wandb_state": "finished",
+      "complete_epochs": 362,
+      "history_sha256": "407fe343b79c08001bb3e310f4fff631e76664f1290891f81e58022e6428339f",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N10-9189913.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "17-Scratch-N50-9189910": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/17-Scratch-N50-9189910",
+      "wandb_state": "finished",
+      "complete_epochs": 390,
+      "history_sha256": "9d939b2d89689e3c5242ff3cb0dc74783ce5d141f796c189d5100715c77641ea",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N50-9189910.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "17-Scratch-N100-9189907": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/17-Scratch-N100-9189907",
+      "wandb_state": "finished",
+      "complete_epochs": 410,
+      "history_sha256": "258a83f857c7256b5a4110441a759729218532479910d08433c1f9b0f8af2af2",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N100-9189907.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "17-Scratch-N200-9189904": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/17-Scratch-N200-9189904",
+      "wandb_state": "finished",
+      "complete_epochs": 414,
+      "history_sha256": "8aab680e46ae9ba36bf73c82be19e557cf35df2c3ce68fb43958a956edde1163",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N200-9189904.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "17-Scratch-N800-9189901": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/17-Scratch-N800-9189901",
+      "wandb_state": "finished",
+      "complete_epochs": 537,
+      "history_sha256": "8661082ee15599dd0f58acb60fdd8a8b31cb9fbcc4a61fcc3a11d006ee5d1f53",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/17-Scratch-N800-9189901.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "18-FrozenBackbone-N10-9189914": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/18-FrozenBackbone-N10-9189914",
+      "wandb_state": "finished",
+      "complete_epochs": 1507,
+      "history_sha256": "0dd5ed18ba53cebde1a6d74cb693cd1e65b0b973332387e20d87c878e9252965",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N10-9189914.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "18-FrozenBackbone-N50-9189911": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/18-FrozenBackbone-N50-9189911",
+      "wandb_state": "finished",
+      "complete_epochs": 1612,
+      "history_sha256": "b5e9ada72c52d7325fd83554a1a07db94d17a4b8156deb008422f4b004cfeade",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N50-9189911.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "18-FrozenBackbone-N100-9189908": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/18-FrozenBackbone-N100-9189908",
+      "wandb_state": "finished",
+      "complete_epochs": 3000,
+      "history_sha256": "0239193fa672ba2d3cba65bd273df945681d4481b4fc9dadab6b4be940c607c8",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N100-9189908.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "18-FrozenBackbone-N200-9189905": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/18-FrozenBackbone-N200-9189905",
+      "wandb_state": "finished",
+      "complete_epochs": 3000,
+      "history_sha256": "229fedf8d444a878b95f9cf8a513d1d754d8725124e0347cc003687aab9cb7aa",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N200-9189905.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "18-FrozenBackbone-N800-9189902": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/18-FrozenBackbone-N800-9189902",
+      "wandb_state": "finished",
+      "complete_epochs": 1755,
+      "history_sha256": "6b4fbd85edc0d6cabb07ab4b641dcae6a60ae9e10899bf17e951e8b5b8c0336e",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/18-FrozenBackbone-N800-9189902.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "19-LastLayerTransfer-N10-9189915": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/19-LastLayerTransfer-N10-9189915",
+      "wandb_state": "finished",
+      "complete_epochs": 716,
+      "history_sha256": "5ca2735298d626ea7bb5029d03ab8545be06b56c00854481f6552ad8e61426eb",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N10-9189915.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "19-LastLayerTransfer-N50-9189912": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/19-LastLayerTransfer-N50-9189912",
+      "wandb_state": "finished",
+      "complete_epochs": 556,
+      "history_sha256": "df307ebd8d80e9eeee0343324c93160b01505b487f072292090cbd7983a72760",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N50-9189912.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "19-LastLayerTransfer-N100-9189909": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/19-LastLayerTransfer-N100-9189909",
+      "wandb_state": "finished",
+      "complete_epochs": 446,
+      "history_sha256": "215e6339da70742d8c790b3daec5d8b896fe62f5ca84ce542d0347126fe02df6",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N100-9189909.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "19-LastLayerTransfer-N200-9189906": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/19-LastLayerTransfer-N200-9189906",
+      "wandb_state": "finished",
+      "complete_epochs": 496,
+      "history_sha256": "cf286b33e8af905d858547d78a6338a7c314ae6e9b73bb0f33dfce3498efe95c",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N200-9189906.jsonl",
+      "checkpoint_minimum_matches_history": true
+    },
+    "19-LastLayerTransfer-N800-9189903": {
+      "url": "https://wandb.ai/trin4011-university-of-oxford/transfer-learning/runs/19-LastLayerTransfer-N800-9189903",
+      "wandb_state": "finished",
+      "complete_epochs": 605,
+      "history_sha256": "095f95938e74c22b90d72e4213f97ea62b41141c1179e68939243fe9e15313d8",
+      "raw_history_path": "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/learning-curve-analysis/histories/19-LastLayerTransfer-N800-9189903.jsonl",
+      "checkpoint_minimum_matches_history": true
+    }
+  },
+  "loss": {
+    "name": "element-balanced standardised MSE",
+    "weight": 1.0,
+    "si_std": 8.789599019755547,
+    "o_std": 19.197689920683118
+  },
+  "training_curve": "Reconstructed from each complete epoch's atom-pooled Si/O RMSE; online predictions while weights change. Sampled minibatch loss records are not used.",
+  "validation_curve": "Recorded full-validation loss after each complete epoch; best losses also independently recomputed from local checkpoints.",
+  "raw_epoch_numbers": "W&B and checkpoints are zero-based; plots/tables are one-based.",
+  "smoothing": false,
+  "repetitions": 1,
+  "validation_structures": 50,
+  "validation_sites": 7200,
+  "frozen_runs_provisional": true,
+  "note": "W&B finished state does not imply early-stopping convergence. Partial final epochs are omitted. No test data evaluated."
+}
