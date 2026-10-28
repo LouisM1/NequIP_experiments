@@ -44,7 +44,8 @@
   ],
   "raster_dpi": 600,
   "figure_inches": [
-    7.6,
-    3.9
-  ]
+    8.8,
+    4.9
+  ],
+  "visual_style": "Boxed panels, no grid, circular markers, blue solid/dashed and orange solid, power-of-ten ticks with minor log ticks"
 }
