@@ -1,0 +1,50 @@
+{
+  "source_directory": "/Users/louismcauliffe/code/research/NequIP_experiments/experiments/21-Test-DataEfficiency-data",
+  "source_sha256": {
+    "metrics.csv": "ddc490741932120c3f78bda22ee92a1fb64432750d23cb503595d383cdb11e50",
+    "test-predictions.npz": "10879216ad769116690fd810f46de4a277da02eabd87dec3e1a092b2a72d618a",
+    "checkpoint-audit.csv": "5e23a06d30db65b94986c864f5ac74a060e55d57f9c01373ffbd14197379150a",
+    "manifest.json": "13a98cd039fd2d09c373f01fd1ffbc3b6781b26e6ed2ac1f2dc892c8606f16b7"
+  },
+  "test_structures": 150,
+  "validation_structures": 50,
+  "checkpoint_selection": "Minimum validation loss; no test-based selection",
+  "element_loss": "Mean squared site error divided by fixed training-derived elemental variance",
+  "balanced_loss": "0.5 * (silicon loss + oxygen loss)",
+  "standard_deviations_ppm": {
+    "Si": 8.789599019755547,
+    "O": 19.197689920683118
+  },
+  "methods": {
+    "17": "From scratch",
+    "21": "Frozen backbone (head only)",
+    "19": "Final layer + head"
+  },
+  "training_sizes": [
+    10,
+    50,
+    100,
+    200,
+    800
+  ],
+  "seed": 42,
+  "training_repetitions": 1,
+  "panel_order": [
+    "O",
+    "Si"
+  ],
+  "axis_scales": {
+    "x": "log",
+    "y": "log"
+  },
+  "uncertainty_bands": false,
+  "exports": [
+    "nmr-test-data-efficiency.svg",
+    "nmr-test-data-efficiency.png"
+  ],
+  "raster_dpi": 600,
+  "figure_inches": [
+    7.6,
+    3.9
+  ]
+}

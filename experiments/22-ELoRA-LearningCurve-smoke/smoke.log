@@ -1,0 +1,241 @@
+dyld[64186]: Library not loaded: /usr/lib/libhvf.dylib
+  Referenced from: <15A54305-09C3-33F9-BB7F-5B42FD775C8E> /opt/homebrew/Cellar/freetype/2.15.0/lib/libfreetype.6.dylib
+  Reason: tried: '/usr/lib/libhvf.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OS/usr/lib/libhvf.dylib' (no such file), '/usr/lib/libhvf.dylib' (no such file, not in dyld cache)
+Matplotlib is building the font cache; this may take a moment.
+PASS: actual file_dataset selections are nested and match experiment 21.
+[graph-pes INFO]: Started `graph-pes-train` at 2026-10-28 16:04:59.795
+Transferred NequIP embeddings and 4 layers from graph-pes-results/Kavanagh-Med-9059603/model.pt
+Source SHA256: 9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec
+Frozen embeddings and interaction layers; only fresh shielding readout, offsets and scales trainable.
+Added rank-4 ELoRA to 12 operations across all four layers; training adapters and the NMR head/scales/offsets.
+[graph-pes INFO]: Successfully parsed config.
+[graph-pes INFO]: Logging to /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N10/rank-0.log
+[graph-pes INFO]: ID for this training run: N10
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N10
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 4 samples
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 29,058
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (8) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+                                         valid/metrics   timer/its_per_s   timer/its_per_s
+   epoch      time   element_balanced_standardized_mse             train             valid
+       1       5.6                             0.70036           1.76991           2.73972
+`Trainer.fit` stopped: `max_epochs=1` reached.
+[graph-pes INFO]: Loading best weights from "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N10/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+You are using the plain ModelCheckpoint callback. Consider using LitModelCheckpoint which with seamless uploading to Model registry.
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
+PASS N=10: two optimizer steps, finite validation, unchanged frozen weights, export reload.
+[graph-pes INFO]: Started `graph-pes-train` at 2026-10-28 16:05:07.799
+Transferred NequIP embeddings and 4 layers from graph-pes-results/Kavanagh-Med-9059603/model.pt
+Source SHA256: 9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec
+Frozen embeddings and interaction layers; only fresh shielding readout, offsets and scales trainable.
+Added rank-4 ELoRA to 12 operations across all four layers; training adapters and the NMR head/scales/offsets.
+[graph-pes INFO]: Successfully parsed config.
+[graph-pes INFO]: Logging to /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N50/rank-0.log
+[graph-pes INFO]: ID for this training run: N50
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N50
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 4 samples
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 29,058
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (8) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+                                         valid/metrics   timer/its_per_s   timer/its_per_s
+   epoch      time   element_balanced_standardized_mse             train             valid
+       1       5.4                             0.68224           1.70358           3.70868
+`Trainer.fit` stopped: `max_epochs=1` reached.
+[graph-pes INFO]: Loading best weights from "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N50/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+You are using the plain ModelCheckpoint callback. Consider using LitModelCheckpoint which with seamless uploading to Model registry.
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
+PASS N=50: two optimizer steps, finite validation, unchanged frozen weights, export reload.
+[graph-pes INFO]: Started `graph-pes-train` at 2026-10-28 16:05:16.295
+Transferred NequIP embeddings and 4 layers from graph-pes-results/Kavanagh-Med-9059603/model.pt
+Source SHA256: 9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec
+Frozen embeddings and interaction layers; only fresh shielding readout, offsets and scales trainable.
+Added rank-4 ELoRA to 12 operations across all four layers; training adapters and the NMR head/scales/offsets.
+[graph-pes INFO]: Successfully parsed config.
+[graph-pes INFO]: Logging to /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N100/rank-0.log
+[graph-pes INFO]: ID for this training run: N100
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N100
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 4 samples
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 29,058
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (8) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+                                         valid/metrics   timer/its_per_s   timer/its_per_s
+   epoch      time   element_balanced_standardized_mse             train             valid
+       1       5.9                             0.72405           1.80505           3.65198
+`Trainer.fit` stopped: `max_epochs=1` reached.
+[graph-pes INFO]: Loading best weights from "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N100/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+You are using the plain ModelCheckpoint callback. Consider using LitModelCheckpoint which with seamless uploading to Model registry.
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
+PASS N=100: two optimizer steps, finite validation, unchanged frozen weights, export reload.
+[graph-pes INFO]: Started `graph-pes-train` at 2026-10-28 16:05:24.400
+Transferred NequIP embeddings and 4 layers from graph-pes-results/Kavanagh-Med-9059603/model.pt
+Source SHA256: 9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec
+Frozen embeddings and interaction layers; only fresh shielding readout, offsets and scales trainable.
+Added rank-4 ELoRA to 12 operations across all four layers; training adapters and the NMR head/scales/offsets.
+[graph-pes INFO]: Successfully parsed config.
+[graph-pes INFO]: Logging to /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N200/rank-0.log
+[graph-pes INFO]: ID for this training run: N200
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N200
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 4 samples
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 29,058
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (8) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+                                         valid/metrics   timer/its_per_s   timer/its_per_s
+   epoch      time   element_balanced_standardized_mse             train             valid
+       1       5.7                             0.73136           1.68634           3.72985
+`Trainer.fit` stopped: `max_epochs=1` reached.
+[graph-pes INFO]: Loading best weights from "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N200/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+You are using the plain ModelCheckpoint callback. Consider using LitModelCheckpoint which with seamless uploading to Model registry.
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
+PASS N=200: two optimizer steps, finite validation, unchanged frozen weights, export reload.
+[graph-pes INFO]: Started `graph-pes-train` at 2026-10-28 16:05:32.675
+Transferred NequIP embeddings and 4 layers from graph-pes-results/Kavanagh-Med-9059603/model.pt
+Source SHA256: 9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec
+Frozen embeddings and interaction layers; only fresh shielding readout, offsets and scales trainable.
+Added rank-4 ELoRA to 12 operations across all four layers; training adapters and the NMR head/scales/offsets.
+[graph-pes INFO]: Successfully parsed config.
+[graph-pes INFO]: Logging to /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N800/rank-0.log
+[graph-pes INFO]: ID for this training run: N800
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N800
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 4 samples
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 29,058
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'train_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/loops/fit_loop.py:310: The number of training batches (8) is smaller than the logging interval Trainer(log_every_n_steps=10). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+/Users/louismcauliffe/code/research/NequIP_experiments/.venv/lib/python3.11/site-packages/pytorch_lightning/trainer/connectors/data_connector.py:425: The 'val_dataloader' does not have many workers which may be a bottleneck. Consider increasing the value of the `num_workers` argument` to `num_workers=7` in the `DataLoader` to improve performance.
+                                         valid/metrics   timer/its_per_s   timer/its_per_s
+   epoch      time   element_balanced_standardized_mse             train             valid
+       1       5.4                             0.76885           1.50602           3.61062
+`Trainer.fit` stopped: `max_epochs=1` reached.
+[graph-pes INFO]: Loading best weights from "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/N800/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+You are using the plain ModelCheckpoint callback. Consider using LitModelCheckpoint which with seamless uploading to Model registry.
+GPU available: False, used: False
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
+PASS N=800: two optimizer steps, finite validation, unchanged frozen weights, export reload.
+ALL FIVE CONFIGS PASSED: /Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/elora-learning-curve/smoke/smoke-results.json
