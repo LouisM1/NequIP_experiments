@@ -4,3 +4,6 @@ __pycache__/
 *.out
 *.err
 .DS_Store
+
+# Regenerated frozen-backbone features; not experiment results.
+graph-pes-results/.frozen-feature-cache/

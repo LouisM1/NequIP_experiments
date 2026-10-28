@@ -149,6 +149,8 @@ def train_from_config(raw):
     graph-pes. Existing --resume runs use their own latest checkpoint instead.
     """
     import graph_pes.scripts.train as training
+    from nmr_helpers.training_fixes import install_training_fixes
+    install_training_fixes()
     raw = deepcopy(raw)
     checkpoint = raw.pop("continuation_checkpoint", None)
     if checkpoint is None:

@@ -73,11 +73,15 @@ from graph_pes.config.training import TrainingConfig
 from graph_pes.data.loader import GraphDataLoader
 from graph_pes.scripts.train import trainer_from_config
 from nmr_helpers.shared_head_training import train_from_config
+from nmr_helpers.training_fixes import install_training_fixes
 from graph_pes.scripts.utils import configure_general_options, get_data_from_cli_arg
 from graph_pes.training.opt import Optimizer
 from graph_pes.training.tasks import TrainingTask, get_all_eval_metrics
 from graph_pes.utils.logger import log_to_file
 from graph_pes.utils.misc import nested_merge_all
+from graph_pes.utils.nn import PerElementParameter
+
+install_training_fixes()
 
 print("Python:", sys.executable)
 print("graph-pes:", version("graph-pes"))
@@ -158,6 +162,12 @@ else:
         scheduler=config.fitting.get_scheduler(),
         eval_metrics=get_all_eval_metrics([data.train, data.valid]),
     )
+    # PerElementParameter's element registry is Python metadata, not part of
+    # state_dict. Restore it without re-fitting or changing any saved values.
+    elements = sorted({z for graph in data.train.graphs for z in torch.unique(graph.Z).tolist()})
+    for parameter in task.model.parameters():
+        if isinstance(parameter, PerElementParameter):
+            parameter.register_elements(elements)
     check_optimizer = config.fitting.get_optimizer()(task.model)
     assert [g["param_names"] for g in check_optimizer.param_groups] == [
         g["param_names"] for g in old_groups
