@@ -1,0 +1,1943 @@
+[graph-pes INFO]: Logging to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/rank-0.log
+[graph-pes INFO]: ID for this training run: 21-FrozenBackbone-N200-ScaleLR-9200935
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="21-FrozenBackbone-N200-ScaleLR-9200935",
+  log_model=False,
+  id="21-FrozenBackbone-N200-ScaleLR-9200935",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [<nmr_helpers.frozen_head_training.FrozenFeatureCache object at 0x1546797ead50>, <nmr_helpers.shared_head_training.ElementRMSELogger object at 0x154679d6e5d0>, OffsetLogger(root=graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935), ScalesLogger(root=graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935), <graph_pes.training.callbacks.ModelTimer object at 0x1546794ae310>, SaveBestModel(root=graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935), <graph_pes.training.callbacks.LoggedProgressBar object at 0x1546794ac050>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x1546794ae050>, EarlyStoppingWithLogging(root=graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x154656750410>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1546564ea5d0>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=CachedTensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(200, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+FrozenHeadOptimizer(
+  name="AdamW",
+  lr=0.003,
+  weight_decay=0.01
+)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+ElementBalancedMSE()
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 200 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 200 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 201.0, 'Si': 436.0}, trainable=True),
+  nequip=CachedTensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 19.5, 'Si': 8.84}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (CachedTensorNequIP)   : 130
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 1.0268839597702026
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 1.0007587671279907
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9780657887458801
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9605454802513123
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9430633783340454
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9303910732269287
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9168911576271057
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9063279032707214
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8977879285812378
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8877443075180054
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8799629807472229
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.874121904373169
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8676264882087708
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.862459123134613
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8570365309715271
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.852060079574585
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8474935293197632
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8441824913024902
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8396090865135193
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.835334837436676
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8313689231872559
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8272994756698608
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8225950598716736
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8184340000152588
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8140378594398499
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8105425834655762
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8063480854034424
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8020025491714478
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7976665496826172
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7937817573547363
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7892537713050842
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7850152850151062
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7809789776802063
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7775843143463135
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7726576328277588
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7686372995376587
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.764921247959137
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7610525488853455
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7571661472320557
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7531445026397705
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7493045926094055
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7458683252334595
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7419641613960266
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7384831309318542
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7349801063537598
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7315978407859802
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7283213138580322
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.724856972694397
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7217096090316772
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7181639075279236
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7151769399642944
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7118710279464722
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.708585798740387
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7050453424453735
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7016807794570923
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6980651617050171
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6942286491394043
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6910319328308105
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6872508525848389
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6828091144561768
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6785141229629517
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6742899417877197
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6685016751289368
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6639125347137451
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.65850830078125
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6519067287445068
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6463439464569092
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6394474506378174
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6314321756362915
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6228440999984741
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6147352457046509
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6076084971427917
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5976620316505432
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5906540751457214
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5805418491363525
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5702103972434998
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5622592568397522
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5520601868629456
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5421038269996643
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5334053635597229
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5256450772285461
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5156050324440002
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.507108211517334
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.49971485137939453
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.49266138672828674
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.4833295941352844
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.476868599653244
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.47093191742897034
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.4621028006076813
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.45523300766944885
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.44957804679870605
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.44329774379730225
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.43768981099128723
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.43443599343299866
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.42723914980888367
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.4233529269695282
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.4187089204788208
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.41291922330856323
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.40934813022613525
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.40650540590286255
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.4026612341403961
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.39823317527770996
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3938741981983185
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3908649682998657
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3876304626464844
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.38525688648223877
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3815734386444092
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.37717965245246887
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3764118552207947
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3718647062778473
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.36910849809646606
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.36673295497894287
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.36327317357063293
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3620073199272156
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.36017224192619324
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3577961027622223
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3553987443447113
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3529242277145386
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.351108580827713
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3495118021965027
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.34784653782844543
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3470132350921631
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3461119830608368
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3435725271701813
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.34240591526031494
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3421601355075836
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.34018176794052124
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3398979902267456
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3373487591743469
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3363211750984192
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3358539342880249
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.33374646306037903
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.33310750126838684
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.331856906414032
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3310665190219879
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.33087146282196045
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3279755115509033
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3256494402885437
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.32506951689720154
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.32406046986579895
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3231455981731415
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.32028549909591675
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3182322680950165
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3181270360946655
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3160320222377777
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3149929940700531
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3115428686141968
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3111139237880707
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3105815052986145
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3097414970397949
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.30849772691726685
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.30826905369758606
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3070566952228546
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3067146837711334
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3061494827270508
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.30480197072029114
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.30411088466644287
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.30288439989089966
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3026523292064667
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.30250656604766846
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.30020609498023987
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.29945996403694153
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2987901568412781
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.29765260219573975
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2974618375301361
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2960315942764282
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2952485680580139
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2949909269809723
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.29476872086524963
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.29262393712997437
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2915591299533844
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.29126662015914917
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2903749346733093
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.28978198766708374
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2883560061454773
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2878456711769104
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.28613850474357605
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.28533682227134705
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.28510329127311707
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.284096360206604
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2839098274707794
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2822535037994385
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.28188738226890564
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.28119906783103943
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.28058964014053345
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2797182500362396
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2791019678115845
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.27882280945777893
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.27751436829566956
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.27665606141090393
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2764204740524292
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2756631374359131
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2755242586135864
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2740587890148163
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.27327606081962585
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.27251338958740234
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2712315618991852
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2705551087856293
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26885056495666504
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2672473192214966
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26686543226242065
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26579636335372925
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26515647768974304
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2645273506641388
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2644987106323242
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26406747102737427
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26229631900787354
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2621227502822876
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.261294960975647
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26064175367355347
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26011988520622253
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25980713963508606
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25884974002838135
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2578744888305664
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2571259140968323
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25672948360443115
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25630879402160645
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2559776306152344
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25592127442359924
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25559931993484497
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.254760205745697
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25452426075935364
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25424185395240784
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2536793351173401
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2531716823577881
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25224897265434265
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25196030735969543
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2512340247631073
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.25093087553977966
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2503502666950226
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24957293272018433
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2495470494031906
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24891753494739532
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24821119010448456
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24777452647686005
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2477705180644989
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24703331291675568
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24647682905197144
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2457524836063385
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24512113630771637
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24509473145008087
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24446433782577515
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24443505704402924
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24389199912548065
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24306005239486694
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24278032779693604
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24191804230213165
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24164347350597382
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2411404252052307
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2408723682165146
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2401692271232605
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23993799090385437
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23940527439117432
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2385525107383728
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23804223537445068
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23790454864501953
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23759816586971283
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2365625947713852
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23589441180229187
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23535417020320892
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23488876223564148
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23474521934986115
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23401369154453278
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23389989137649536
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2326340526342392
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23232977092266083
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23179760575294495
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23070620000362396
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23025797307491302
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22906342148780823
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22839683294296265
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22821742296218872
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22725819051265717
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22713778913021088
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22675929963588715
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22606129944324493
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22545002400875092
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.225242018699646
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22521817684173584
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22482851147651672
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22476859390735626
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22389182448387146
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2233903557062149
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22325167059898376
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22287116944789886
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2213892936706543
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2211894989013672
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22113876044750214
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2209966778755188
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22090934216976166
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21976540982723236
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21922186017036438
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21920837461948395
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2191149890422821
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2184498906135559
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21791478991508484
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21778063476085663
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21747680008411407
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2164711356163025
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2156919687986374
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21501624584197998
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21484026312828064
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21382011473178864
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2132524996995926
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21238118410110474
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21211686730384827
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2115735560655594
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2114565670490265
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21120969951152802
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21079716086387634
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21067246794700623
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20940248668193817
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20890672504901886
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20875106751918793
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20832715928554535
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20795047283172607
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20774424076080322
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20748139917850494
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2062915414571762
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20576421916484833
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20533309876918793
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2049526572227478
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20474664866924286
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20451614260673523
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20411983132362366
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20372529327869415
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20312552154064178
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20274443924427032
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20221102237701416
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20175620913505554
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2016104906797409
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2012915462255478
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2010713815689087
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.20057174563407898
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2001476287841797
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1999281644821167
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19962632656097412
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19916678965091705
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19911852478981018
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.199045330286026
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19824865460395813
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19770671427249908
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19745120406150818
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19681714475154877
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19588804244995117
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19580267369747162
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19551637768745422
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19512876868247986
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1943083256483078
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19387108087539673
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19371534883975983
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19314631819725037
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19311627745628357
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19269058108329773
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19248029589653015
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19199709594249725
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19153280556201935
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19090275466442108
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19063934683799744
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1903371810913086
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19011791050434113
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18937572836875916
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18881192803382874
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18855196237564087
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18849807977676392
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18798160552978516
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.187909796833992
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18786197900772095
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18718835711479187
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18714092671871185
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18631738424301147
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18595948815345764
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18568411469459534
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18541096150875092
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18518729507923126
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18507444858551025
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18482202291488647
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1839045137166977
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18389131128787994
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18383949995040894
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18318185210227966
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18300402164459229
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18244382739067078
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18219205737113953
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1820681244134903
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18164020776748657
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18162646889686584
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18133188784122467
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18129725754261017
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18067625164985657
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1803148239850998
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18002644181251526
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17976488173007965
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17970235645771027
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.179268017411232
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17920725047588348
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17909391224384308
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17859424650669098
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1782539337873459
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17813071608543396
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1776040643453598
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17755576968193054
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17750807106494904
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17731189727783203
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17725792527198792
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17684617638587952
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17668204009532928
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1762191355228424
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17605453729629517
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1758846789598465
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17550528049468994
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1753014773130417
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17503246665000916
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17471879720687866
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17455057799816132
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17445361614227295
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17424030601978302
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17418134212493896
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1735527664422989
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17332731187343597
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1731056571006775
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17277038097381592
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17275862395763397
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17245788872241974
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17224760353565216
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17194482684135437
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17180103063583374
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17170117795467377
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17160983383655548
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17092111706733704
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17083796858787537
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17081667482852936
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.17045921087265015
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1704568862915039
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1698562204837799
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16958773136138916
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16937156021595
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1692628711462021
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16891814768314362
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16889604926109314
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16884897649288177
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16875387728214264
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16864162683486938
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16847366094589233
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1681307554244995
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1677977442741394
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16774509847164154
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16768914461135864
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1675071120262146
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16743075847625732
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16736412048339844
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16716836392879486
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1670573353767395
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1669260412454605
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16677851974964142
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16674339771270752
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16654455661773682
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16622720658779144
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16621561348438263
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16576774418354034
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16571597754955292
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16542835533618927
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16525398194789886
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16503971815109253
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1647343635559082
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1646762490272522
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1644326150417328
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16434894502162933
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1642676740884781
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16412851214408875
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16372086107730865
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1635456085205078
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16315092146396637
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16311649978160858
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16304035484790802
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1629592478275299
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16294950246810913
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16283981502056122
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1627499908208847
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16254127025604248
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16246917843818665
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16243816912174225
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16217400133609772
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1620536595582962
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16196317970752716
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16193367540836334
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16174772381782532
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16167877614498138
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16162142157554626
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16142459213733673
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16123396158218384
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16123096644878387
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16111698746681213
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1611018031835556
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16102354228496552
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16082170605659485
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1607804149389267
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16075843572616577
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16074304282665253
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16070611774921417
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16066783666610718
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16063524782657623
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16056519746780396
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16050970554351807
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1603604108095169
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16028137505054474
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16027246415615082
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16014675796031952
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16004352271556854
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15999649465084076
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15996550023555756
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15995246171951294
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.159817636013031
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15972819924354553
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1596582680940628
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15964847803115845
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15953020751476288
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15947552025318146
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15947292745113373
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1593499779701233
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15932105481624603
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15925593674182892
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15924794971942902
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15923944115638733
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15918393433094025
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15916131436824799
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15910105407238007
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15898890793323517
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1589243859052658
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15891700983047485
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15888561308383942
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15885590016841888
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1588306874036789
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1588306725025177
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15878012776374817
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15871591866016388
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15867318212985992
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15866687893867493
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15863056480884552
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15861596167087555
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15860341489315033
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15857136249542236
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1585647463798523
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15853416919708252
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1584777683019638
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15846189856529236
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15840834379196167
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15838921070098877
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1583791971206665
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1583637297153473
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1583324819803238
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15833023190498352
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1583074927330017
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15827861428260803
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15827251970767975
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15823562443256378
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15822696685791016
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1582142561674118
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15820394456386566
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15818311274051666
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15817582607269287
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15816575288772583
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1581464409828186
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15812426805496216
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1580960899591446
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1580939143896103
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15809319913387299
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1580924689769745
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15808989107608795
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15805640816688538
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15805558860301971
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15801844000816345
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1580149531364441
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15801364183425903
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15799939632415771
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1579776555299759
+[graph-pes DEBUG]: Model saved to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/21-FrozenBackbone-N200-ScaleLR-9200935/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
