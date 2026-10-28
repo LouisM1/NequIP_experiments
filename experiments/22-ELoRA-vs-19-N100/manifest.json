@@ -1,0 +1,59 @@
+{
+  "runs": [
+    {
+      "method": "Last layer + head",
+      "run_id": "19-LastLayerTransfer-N100-9189909",
+      "best_epoch": 146,
+      "final_epoch": 446,
+      "best_step": 3650,
+      "final_step": 11150,
+      "recorded_best_loss": 0.046629536896944046,
+      "checks_since_best": 300,
+      "runtime_minutes": 14.622950514683334,
+      "trainable_parameters": 141380,
+      "export_matches_best": true,
+      "model_sha256": "135df5968b6b65642d4e1de8cd5feb401d8e7cadabf133a9fb15f8cc9cc78e9a",
+      "best_checkpoint_sha256": "ff2f27248c9897cec5d2af5808a8e6cef7f25fdc61b9849b57a39e25e932cfdd",
+      "config_sha256": "5cf5c367e63b507eaa1ec9777a9cf6e1e22ec56157f4f3e254f8686dbb0b179a",
+      "evaluated_balanced_mse": 0.04663387756808866
+    },
+    {
+      "method": "ELoRA rank 4 + head",
+      "run_id": "22-ELoRA-N100-R4-9201369",
+      "best_epoch": 175,
+      "final_epoch": 475,
+      "best_step": 4375,
+      "final_step": 11875,
+      "recorded_best_loss": 0.026682693511247635,
+      "checks_since_best": 300,
+      "runtime_minutes": 22.894703610049998,
+      "trainable_parameters": 29060,
+      "export_matches_best": true,
+      "model_sha256": "f26abec2479619f9102e2cd0ac9ccd778477885c2811b55fe0254ab5a03fff92",
+      "best_checkpoint_sha256": "740ee6f506e3faaa6f0beb8f3a47a2021cca941f2eb03d16f85835bb9bb95f77",
+      "config_sha256": "8a4a578b264eb52da8ff3ce36b3fd5d1fe0a6d546cb7e1c7e664f642450b20a2",
+      "evaluated_balanced_mse": 0.026680162292470437
+    }
+  ],
+  "split": "validation",
+  "training_structures": 100,
+  "validation_structures": 50,
+  "validation_sites": 7200,
+  "seed": 42,
+  "matched_sections": [
+    "data",
+    "loss",
+    "fitting",
+    "source model and E/F checkpoint"
+  ],
+  "target": "Absolute DFT isotropic shielding, MS_Iso_QM = trace(ms)/3, ppm",
+  "validation_sha256": "e73ce6065ce6729d6549d5b30a4129634aaec84e3a2429c044d31d81020a4d11",
+  "train_file_sha256": "77de1ed9983781e906c35aa63d4f134a0777c6e38a933791c6db866f8b9c6fda",
+  "source_EF_sha256": "9aad652ffc8a122765520d60fc2283371929cc8412033287df61a982501f0fec",
+  "elora_implementation_sha256": "092ee7d1ee5853175eb54a09d6eeca076bd47a8211e8592eb28ba7d159218a4a",
+  "evaluator_sha256": "30ed6ff655c50d6efeed8f1c402cfda0647dd1a7d5eea3beaa7bbd7920b14140",
+  "test_accessed": false,
+  "inference": "CPU float32, 4 threads; metrics float64; strict best-checkpoint load",
+  "torch": "2.6.0",
+  "numpy": "2.4.6"
+}

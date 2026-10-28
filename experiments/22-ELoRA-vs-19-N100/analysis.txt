@@ -1,0 +1,61 @@
+Experiment 22 vs experiment 19: matched N=100 validation comparison
+Evaluated 28 October 2026
+
+ELoRA: 22-ELoRA-N100-R4-9201369
+Baseline: 19-LastLayerTransfer-N100-9189909
+Baseline trains the final interaction layer, shared head, scales and offsets.
+ELoRA trains rank-4 adapters in all four interaction layers plus the same head,
+scales and offsets; the original backbone parameters stay frozen.
+
+Comparison protocol
+Both configurations have identical data, loss and fitting sections, seed 42,
+and the same original E/F source checkpoint. Both fit the same 100-structure
+training subset. Evaluate their minimum-validation-loss checkpoints on the
+same 50 validation structures (2,400 Si sites and 4,800 O sites).
+The exported model.pt state matches best.ckpt exactly for both runs.
+No fitting, label calibration or test-set evaluation was performed here.
+Targets are absolute DFT isotropic shieldings in ppm, not referenced shifts.
+
+Metric                         Last layer + head     ELoRA       Reduction
+Si RMSE (ppm)                       1.983931          1.393094      29.8%
+Si MAE (ppm)                        1.029916          0.710065      31.1%
+O RMSE (ppm)                        3.949371          3.226134      18.3%
+O MAE (ppm)                         2.232573          1.576699      29.4%
+Balanced standardized MSE           0.046634          0.026680      42.8%
+Trainable parameters                  141380             29060     79.4%
+Best epoch (1-based)                     146               175
+Final epoch (1-based)                    446               475
+
+Both runs completed with 300 validation checks since their best checkpoint.
+The selected checkpoint metrics differ from the final-epoch metrics in
+summary.yaml. Fresh CPU float32 evaluation reproduces the recorded best losses
+within 0.01% relative error; tiny differences from ARC GPU arithmetic remain.
+The loss is 0.5 * (MSE_Si / 8.789599019755547^2
+                 + MSE_O / 19.197689920683118^2).
+
+Interpretation
+ELoRA improves both elements and has lower balanced MSE on 49/50 structures.
+Median per-structure balanced MSE falls from 0.010106 to 0.004913.
+The parity panels use identical limits for each element and show all sites.
+Both models retain conspicuous low-shielding oxygen outliers. Improvements are
+widespread, although difficult structures still contribute heavily to MSE.
+This supports ELoRA for this matched N=100 experiment. It does not establish
+seed-to-seed robustness or held-out test generalization: the validation set was
+also used for scheduling, early stopping and checkpoint selection.
+Fewer trainable parameters should not be read as a runtime speedup. Reported
+run times were 22.9 min for ELoRA and 14.6 min for the baseline, without a
+controlled same-hardware timing comparison.
+
+Files
+validation-parity.png/.pdf: Si/O parity panels for both methods.
+validation-comparison.png/.pdf: RMSE, MAE and paired per-structure balanced MSE.
+validation-sites.csv.gz: predictions and references indexed by structure/atom.
+validation-metrics.csv: species metrics, including bias and R-squared.
+validation-structures.csv: per-structure balanced losses.
+runs.csv and manifest.json: checkpoint details, exact inputs and SHA-256 hashes.
+evaluation.log: evaluation progress and checks.
+analyse.py: reruns inference, verification and plotting without training.
+
+Reproduce from the NequIP_experiments project root:
+.venv/bin/python experiments/22-ELoRA-vs-19-N100/analyse.py
+Set NEQUIP_PROJECT to the project root if running from a different installation.

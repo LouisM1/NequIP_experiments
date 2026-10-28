@@ -1,0 +1,14 @@
+Predicted both models: 10/50 structures in 5.3s
+Predicted both models: 20/50 structures in 10.3s
+Predicted both models: 30/50 structures in 15.4s
+Predicted both models: 40/50 structures in 20.4s
+Predicted both models: 50/50 structures in 25.8s
+             method element  sites  rmse_ppm  mae_ppm  bias_ppm       r2
+  Last layer + head       O   4800  3.949371 2.232573 -0.345810 0.964455
+  Last layer + head      Si   2400  1.983931 1.029916 -0.049415 0.952079
+ELoRA rank 4 + head       O   4800  3.226134 1.576699  0.126628 0.976281
+ELoRA rank 4 + head      Si   2400  1.393094 0.710065  0.037507 0.976371
+             method  best_epoch  final_epoch  evaluated_balanced_mse  export_matches_best
+  Last layer + head         146          446                0.046634                 True
+ELoRA rank 4 + head         175          475                0.026680                 True
+ELoRA has lower balanced loss on 49/50 validation structures.
