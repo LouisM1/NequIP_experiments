@@ -35,6 +35,5 @@
   },
   "primary_split": "test",
   "uncertainty": "No seed bands: one seed",
-  "source_manifest": "/Users/louismcauliffe/code/research/NequIP_experiments/experiments/21-23-LearningCurve-data/manifest.json",
-  "source_manifest_sha256": "c1f4d66ae8a6baa1cbb4e2956a367dd2bdba5f60af9a51f3a8d0875a6d0061ab"
+  "source_manifest": "/Users/louismcauliffe/code/research/NequIP_experiments/experiments/21-23-LearningCurve-data/manifest.json"
 }
