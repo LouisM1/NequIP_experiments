@@ -1,0 +1,568 @@
+[graph-pes INFO]: Logging to graph-pes-results/23-FullFineTune-N800-9203037/rank-0.log
+[graph-pes INFO]: ID for this training run: 23-FullFineTune-N800-9203037
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/23-FullFineTune-N800-9203037
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="23-FullFineTune-N800-9203037",
+  log_model=False,
+  id="23-FullFineTune-N800-9203037",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [<nmr_helpers.shared_head_training.ElementRMSELogger object at 0x153783591990>, OffsetLogger(root=graph-pes-results/23-FullFineTune-N800-9203037), ScalesLogger(root=graph-pes-results/23-FullFineTune-N800-9203037), <graph_pes.training.callbacks.ModelTimer object at 0x153778d63ad0>, SaveBestModel(root=graph-pes-results/23-FullFineTune-N800-9203037), <graph_pes.training.callbacks.LoggedProgressBar object at 0x153778a54410>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x153778aed590>, EarlyStoppingWithLogging(root=graph-pes-results/23-FullFineTune-N800-9203037), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x153778a57910>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x15377886eb90>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(800, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.0001, weight_decay=0.01)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+ElementBalancedMSE()
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 800 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 800 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 202.0, 'Si': 436.0}, trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e -> 128x0e | 16384 weights)
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 19.2, 'Si': 8.79}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 738,050
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 0.38555020093917847
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.13959184288978577
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08884184062480927
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06773634254932404
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05674651265144348
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05120164528489113
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04440155625343323
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.04149482399225235
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.038539279252290726
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.035226356238126755
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.03350618854165077
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.032024823129177094
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.030414128676056862
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.029465902596712112
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.02773263491690159
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.02683357149362564
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.02616158500313759
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.025534290820360184
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.02488045208156109
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0244367104023695
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.023606155067682266
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.022632014006376266
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.022069472819566727
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.021866561844944954
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.021001046523451805
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.020731307566165924
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.020433662459254265
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.019951604306697845
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01982210949063301
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.019332384690642357
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.019110238179564476
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.018874354660511017
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.018606888130307198
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.018336886540055275
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.018268795683979988
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.018142152577638626
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.017562614753842354
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01703862100839615
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.016630753874778748
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.016527578234672546
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.016397446393966675
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01632390357553959
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.016205431893467903
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01616925559937954
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.016004791483283043
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.015608948655426502
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.015503901056945324
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.015168578363955021
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01511349156498909
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.015050248242914677
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.014885437674820423
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.014858966693282127
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.014730392955243587
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.014387278817594051
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01426134817302227
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01413655374199152
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.014060049317777157
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.013878659345209599
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.013659128919243813
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.013585830107331276
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01349145732820034
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.013279817067086697
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012903585098683834
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012861175462603569
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012812422588467598
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012752150185406208
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012723071500658989
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012553608044981956
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012485390529036522
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01229969970881939
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012098085135221481
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012047495692968369
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.012004188261926174
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011808539740741253
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011681467294692993
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011574803851544857
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011544035747647285
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011505961418151855
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01147823128849268
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01147264800965786
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011464392766356468
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011376803740859032
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011308691464364529
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011295820586383343
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.011021962389349937
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010929666459560394
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010904049500823021
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010890020988881588
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010834011249244213
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010740594007074833
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010636730119585991
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010603907518088818
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01057362835854292
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010481690056622028
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010390900075435638
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010388092137873173
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010383562184870243
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010344810783863068
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010335694998502731
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010290187783539295
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010259201750159264
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010252675972878933
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010175220668315887
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010161718353629112
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010158006101846695
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010134745389223099
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010124381631612778
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.01008972804993391
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010074518620967865
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010070418938994408
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010020983405411243
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010017283260822296
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.010011591017246246
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.009989139623939991
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.009980594739317894
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.009965039789676666
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.009924815036356449
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.009912421926856041
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.009884430095553398
+[graph-pes DEBUG]: Model saved to graph-pes-results/23-FullFineTune-N800-9203037/model.pt
+[graph-pes DEBUG]: Deployed model for use with LAMMPS to graph-pes-results/23-FullFineTune-N800-9203037/lammps_model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/23-FullFineTune-N800-9203037/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...

@@ -1,0 +1,608 @@
+[graph-pes INFO]: Logging to graph-pes-results/22-ELoRA-N10-R4-9201979/rank-0.log
+[graph-pes INFO]: ID for this training run: 22-ELoRA-N10-R4-9201979
+[graph-pes INFO]: 
+Output for this training run can be found at:
+    └─ graph-pes-results/22-ELoRA-N10-R4-9201979
+        ├─ rank-0.log         # find a verbose log here
+        ├─ model.pt           # the best model (according to valid/loss/total)
+        ├─ lammps_model.pt    # the best model deployed to LAMMPS
+        ├─ train-config.yaml  # the complete config used for this run
+        └─ summary.yaml       # the summary of the training run
+
+[graph-pes DEBUG]: 
+Logging using WandbLogger(
+  entity="trin4011-university-of-oxford",
+  project="transfer-learning",
+  name="22-ELoRA-N10-R4-9201979",
+  log_model=False,
+  id="22-ELoRA-N10-R4-9201979",
+  save_dir="graph-pes-results"
+)
+
+[graph-pes DEBUG]: Callbacks: [<nmr_helpers.shared_head_training.ElementRMSELogger object at 0x151917a65090>, OffsetLogger(root=graph-pes-results/22-ELoRA-N10-R4-9201979), ScalesLogger(root=graph-pes-results/22-ELoRA-N10-R4-9201979), <graph_pes.training.callbacks.ModelTimer object at 0x1519151fb810>, SaveBestModel(root=graph-pes-results/22-ELoRA-N10-R4-9201979), <graph_pes.training.callbacks.LoggedProgressBar object at 0x151915517b10>, <pytorch_lightning.callbacks.lr_monitor.LearningRateMonitor object at 0x151914f92d50>, EarlyStoppingWithLogging(root=graph-pes-results/22-ELoRA-N10-R4-9201979), <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x151915196c50>, <pytorch_lightning.callbacks.model_checkpoint.ModelCheckpoint object at 0x1519151f9e10>]
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset(trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=[])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): PathELoRA(
+          (base): Linear(128x0e -> 128x0e | 16384 weights)
+          (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x128])
+          (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 128x4])
+        )
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): PathELoRA(
+          (base): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x128]
+              (1): Parameter containing: [torch.float32 of size 4x128]
+              (2): Parameter containing: [torch.float32 of size 4x128]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 224x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): PathELoRA(
+            (base): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+            (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x256])
+            (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 224x4])
+          )
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): PathELoRA(
+          (base): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x128]
+              (1): Parameter containing: [torch.float32 of size 4x64]
+              (2): Parameter containing: [torch.float32 of size 4x32]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 128x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): PathELoRA(
+          (base): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x224]
+              (1): Parameter containing: [torch.float32 of size 4x288]
+              (2): Parameter containing: [torch.float32 of size 4x256]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 224x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): PathELoRA(
+            (base): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+            (A): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 4x256]
+                (1): Parameter containing: [torch.float32 of size 4x128]
+                (2): Parameter containing: [torch.float32 of size 4x64]
+            )
+            (B): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 224x4]
+                (1): Parameter containing: [torch.float32 of size 64x4]
+                (2): Parameter containing: [torch.float32 of size 32x4]
+            )
+          )
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): PathELoRA(
+          (base): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x128]
+              (1): Parameter containing: [torch.float32 of size 4x64]
+              (2): Parameter containing: [torch.float32 of size 4x32]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 128x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): PathELoRA(
+          (base): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+          (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x224])
+          (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 128x4])
+        )
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): PathELoRA(
+            (base): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+            (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x256])
+            (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 128x4])
+          )
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler(trainable=True)
+  )
+)
+
+[graph-pes DEBUG]: 
+Data:
+DatasetCollection(
+  train=ASEToGraphDataset(10, properties=['tensor']),
+  valid=ASEToGraphDataset(50, properties=['tensor'])
+)
+
+[graph-pes DEBUG]: 
+Optimizer:
+Optimizer(name="AdamW", lr=0.003, weight_decay=0.01)
+
+[graph-pes DEBUG]: 
+Scheduler:
+LRScheduler(
+  name="ReduceLROnPlateau",
+  patience=25,
+  factor=0.8
+)
+
+[graph-pes DEBUG]: 
+Total loss:
+TotalLoss:
+ElementBalancedMSE()
+
+[graph-pes INFO]: Preparing data
+[graph-pes INFO]: Caching neighbour lists for 10 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Caching neighbour lists for 50 structures with cutoff 6.0, property mapping {'MS_Iso_QM': 'tensor'} and torch dtype torch.float32
+[graph-pes INFO]: Setting up datasets
+[graph-pes INFO]: Pre-fitting the model on 10 samples
+[graph-pes DEBUG]: 
+Model:
+ScalarTensorAdditionModel(
+  offset=LearnableTensorOffset({'O': 199.0, 'Si': 436.0}, trainable=True),
+  nequip=TensorNequIP(
+    (Z_embedding): AtomicOneHot(elements=['Si', 'O'])
+    (initial_node_embedding): PerElementEmbedding(dim=128, elements=['O', 'Si'])
+    (edge_embedding): SphericalHarmonics(1x1o -> 1x0e+1x1o+1x2e)
+    (layers): UniformModuleList(
+      (0): NequIPMessagePassingLayer(
+        (pre_message_linear): PathELoRA(
+          (base): Linear(128x0e -> 128x0e | 16384 weights)
+          (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x128])
+          (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 128x4])
+        )
+        (message_tensor_product): TensorProduct(128x0e x 1x0e+1x1o+1x2e -> 128x0e+128x1o+128x2e | 384 paths | 384 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 384, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): PathELoRA(
+          (base): Linear(128x0e+128x1o+128x2e -> 224x0e+64x1o+32x2e | 40960 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x128]
+              (1): Parameter containing: [torch.float32 of size 4x128]
+              (2): Parameter containing: [torch.float32 of size 4x128]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 224x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): PathELoRA(
+            (base): FullyConnectedTensorProduct(128x0e x 2x0e -> 224x0e+64x1o+32x2e | 57344 paths | 57344 weights)
+            (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x256])
+            (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 224x4])
+          )
+        )
+      )
+      (1-2): 2 x NequIPMessagePassingLayer(
+        (pre_message_linear): PathELoRA(
+          (base): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x128]
+              (1): Parameter containing: [torch.float32 of size 4x64]
+              (2): Parameter containing: [torch.float32 of size 4x32]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 128x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (224x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e)
+        (post_message_linear): PathELoRA(
+          (base): Linear(224x0e+288x1o+256x2e -> 224x0e+64x1o+32x2e | 76800 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x224]
+              (1): Parameter containing: [torch.float32 of size 4x288]
+              (2): Parameter containing: [torch.float32 of size 4x256]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 224x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): PathELoRA(
+            (base): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 224x0e+64x1o+32x2e | 67584 paths | 67584 weights)
+            (A): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 4x256]
+                (1): Parameter containing: [torch.float32 of size 4x128]
+                (2): Parameter containing: [torch.float32 of size 4x64]
+            )
+            (B): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 224x4]
+                (1): Parameter containing: [torch.float32 of size 64x4]
+                (2): Parameter containing: [torch.float32 of size 32x4]
+            )
+          )
+        )
+      )
+      (3): NequIPMessagePassingLayer(
+        (pre_message_linear): PathELoRA(
+          (base): Linear(128x0e+64x1o+32x2e -> 128x0e+64x1o+32x2e | 21504 weights)
+          (A): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 4x128]
+              (1): Parameter containing: [torch.float32 of size 4x64]
+              (2): Parameter containing: [torch.float32 of size 4x32]
+          )
+          (B): ParameterList(
+              (0): Parameter containing: [torch.float32 of size 128x4]
+              (1): Parameter containing: [torch.float32 of size 64x4]
+              (2): Parameter containing: [torch.float32 of size 32x4]
+          )
+        )
+        (message_tensor_product): TensorProduct(128x0e+64x1o+32x2e x 1x0e+1x1o+1x2e -> 224x0e+288x1o+256x2e | 768 paths | 768 weights)
+        (weight_generator): HaddamardProduct(
+          (components): ModuleList(
+            (0): Sequential(
+              (0): Bessel(n_features=64, cutoff=6.0, trainable=True)
+              (1): MLP(64 → 64 → 64 → 768, activation=SiLU())
+            )
+            (1): PolynomialEnvelope(cutoff=6.0, p=6)
+          )
+        )
+        (aggregation): SumNeighbours()
+        (non_linearity): Gate (128x0e -> 128x0e)
+        (post_message_linear): PathELoRA(
+          (base): Linear(224x0e+288x1o+256x2e -> 128x0e | 28672 weights)
+          (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x224])
+          (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 128x4])
+        )
+        (self_interaction): TensorProductSelfInteraction(
+          (tensor_product): PathELoRA(
+            (base): FullyConnectedTensorProduct(128x0e+64x1o+32x2e x 2x0e -> 128x0e | 32768 paths | 32768 weights)
+            (A): ParameterList(  (0): Parameter containing: [torch.float32 of size 4x256])
+            (B): ParameterList(  (0): Parameter containing: [torch.float32 of size 128x4])
+          )
+        )
+      )
+    )
+    (tensor_readout): LinearReadOut(128x0e -> 1x0e | 128 weights)
+    (scaler): LocalTensorScaler({'O': 19.2, 'Si': 9.21}, trainable=True)
+  )
+)
+
+[graph-pes INFO]: 
+Number of learnable params:
+    offset (LearnableTensorOffset): 2
+    nequip (TensorNequIP)         : 29,058
+
+[graph-pes INFO]: Sanity checking the model...
+[graph-pes INFO]: Starting fit...
+[graph-pes DEBUG]: 
+Using LR scheduler config:
+{'interval': 'epoch', 'frequency': 1, 'monitor': 'valid/loss/total', 'strict': True}
+
+[graph-pes DEBUG]: New best model: validation loss 1.0401663780212402
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes WARNING]: 
+Failed to deploy model for use with LAMMPS: 
+
+forward(__torch__.e3nn.o3._linear.Linear self, Tensor features, Tensor? weight=None, Tensor? bias=None) -> Tensor:
+Keyword argument weight specified twice.
+:
+  File "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/nmr_helpers/elora.py", line 48
+        weight = self.base.weight + delta  # multiplier 1; no extra alpha/r
+        if self.is_tensor_product:
+            return self.base(x, y, weight=weight)
+                   ~~~~~~~~~ <--- HERE
+        return self.base(x, weight=weight)
+
+[graph-pes DEBUG]: New best model: validation loss 1.0276539325714111
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 1.0103107690811157
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9868245720863342
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9579417705535889
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.9231957197189331
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8790243268013
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.8213043212890625
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.7478161454200745
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6733815670013428
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.6195998191833496
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.5364482998847961
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.483493834733963
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.45046329498291016
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.412922739982605
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3758352994918823
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.34170418977737427
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.3168874680995941
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2942807078361511
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.26975151896476746
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.24738401174545288
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.23440195620059967
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.22432254254817963
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.2182878851890564
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21482765674591064
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.21084274351596832
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19961965084075928
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.19032688438892365
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.18217772245407104
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1732509583234787
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.16859093308448792
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1609487533569336
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.15551765263080597
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1508263647556305
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.14383481442928314
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.14007945358753204
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.13894563913345337
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.13344617187976837
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.13102957606315613
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.12882250547409058
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.12319599092006683
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.12087520956993103
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.11687911301851273
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.11386667937040329
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.11014611274003983
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10864458233118057
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10542259365320206
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.1028665155172348
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.10138516128063202
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09934011101722717
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0962989404797554
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09482254087924957
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09285679459571838
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09126536548137665
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.09006974846124649
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08852536231279373
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08647539466619492
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08530525863170624
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08402760326862335
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08329825103282928
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08168363571166992
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.08032239973545074
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07897481322288513
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07770231366157532
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07639475911855698
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07508670538663864
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07484051585197449
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07207861542701721
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.07003994286060333
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06943295150995255
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06816097348928452
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06624839454889297
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06607271730899811
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06564832478761673
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06542704254388809
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06525254994630814
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06479822844266891
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06458165496587753
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06357752531766891
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06315290182828903
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06270928680896759
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06263387948274612
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.062121447175741196
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.061820246279239655
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.061306558549404144
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.061123527586460114
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06110634282231331
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.06069617345929146
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.060282591730356216
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05966800078749657
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.059392910450696945
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05898316949605942
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05774766579270363
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.0576142743229866
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.057514093816280365
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05711101368069649
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05700471252202988
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.055897995829582214
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05543786659836769
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.055227551609277725
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05495636910200119
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05473379045724869
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05465847998857498
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05447958782315254
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.054394397884607315
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05414920300245285
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.053844694048166275
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05360963195562363
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05345196649432182
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05333484336733818
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05332140997052193
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05317607522010803
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05317060649394989
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05314163118600845
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.05310408025979996
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes DEBUG]: New best model: validation loss 0.053049515932798386
+[graph-pes DEBUG]: Model saved to graph-pes-results/22-ELoRA-N10-R4-9201979/model.pt
+[graph-pes INFO]: Loading best weights from "/data/oums-atom-elec-ml/trin4011/NequIP_experiments/graph-pes-results/22-ELoRA-N10-R4-9201979/checkpoints/best.ckpt"
+[graph-pes INFO]: Training complete.
+[graph-pes INFO]: Testing best model...
+[graph-pes INFO]: Testing complete.
+[graph-pes INFO]: Awaiting final Lightning and W&B shutdown...
