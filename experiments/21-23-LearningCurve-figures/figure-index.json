@@ -1,0 +1,40 @@
+{
+  "figures": [
+    "comparison-test-log-log",
+    "comparison-valid-log-log",
+    "23-learning-curve-log-log",
+    "22-learning-curve-log-log",
+    "19-learning-curve-log-log",
+    "21-learning-curve-log-log",
+    "17-learning-curve-log-log",
+    "23-valid-parity",
+    "22-valid-parity",
+    "19-valid-parity",
+    "21-valid-parity",
+    "17-valid-parity",
+    "comparison-valid-parity-N800",
+    "23-test-parity",
+    "22-test-parity",
+    "19-test-parity",
+    "21-test-parity",
+    "17-test-parity",
+    "comparison-test-parity-N800"
+  ],
+  "formats": [
+    "png",
+    "pdf",
+    "svg"
+  ],
+  "axis_scales": "log-log",
+  "comparison_methods": {
+    "23": "Full fine-tuning",
+    "22": "ELoRA",
+    "19": "Last layer + NMR head",
+    "21": "NMR head only",
+    "17": "Direct training"
+  },
+  "primary_split": "test",
+  "uncertainty": "No seed bands: one seed",
+  "source_manifest": "/Users/louismcauliffe/code/research/NequIP_experiments/experiments/21-23-LearningCurve-data/manifest.json",
+  "source_manifest_sha256": "c1f4d66ae8a6baa1cbb4e2956a367dd2bdba5f60af9a51f3a8d0875a6d0061ab"
+}

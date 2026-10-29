@@ -1,0 +1,52 @@
+AUDIT 17-Scratch-N10-9189913 Early stopping best 62 last 362
+AUDIT 17-Scratch-N100-9189907 Early stopping best 110 last 410
+AUDIT 17-Scratch-N200-9189904 Early stopping best 114 last 414
+AUDIT 17-Scratch-N50-9189910 Early stopping best 90 last 390
+AUDIT 17-Scratch-N800-9189901 Early stopping best 237 last 537
+AUDIT 19-LastLayerTransfer-N10-9189915 Early stopping best 416 last 716
+AUDIT 19-LastLayerTransfer-N100-9189909 Early stopping best 146 last 446
+AUDIT 19-LastLayerTransfer-N200-9189906 Early stopping best 196 last 496
+AUDIT 19-LastLayerTransfer-N50-9189912 Early stopping best 256 last 556
+AUDIT 19-LastLayerTransfer-N800-9189903 Early stopping best 305 last 605
+AUDIT 21-FrozenBackbone-N10-ScaleLR-9200932 Early stopping best 4704 last 5004
+AUDIT 21-FrozenBackbone-N100-ScaleLR-9200934 Early stopping best 3618 last 3918
+AUDIT 21-FrozenBackbone-N200-ScaleLR-9200935 Early stopping best 2676 last 2976
+AUDIT 21-FrozenBackbone-N50-ScaleLR-9200933 Early stopping best 5361 last 5661
+AUDIT 21-FrozenBackbone-N800-ScaleLR-9200936 Early stopping best 1697 last 1997
+AUDIT 22-ELoRA-N10-R4-9201979 Early stopping best 267 last 567
+REUSE AUDITED PARTIAL 22-ELoRA-N10-R4-9201979 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N10-R4-9201979 test
+AUDIT 22-ELoRA-N100-R4-9201369 Early stopping best 175 last 475
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201369 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201369 test
+AUDIT 22-ELoRA-N100-R4-9201981 Early stopping best 195 last 495
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201981 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201981 test
+AUDIT 22-ELoRA-N200-R4-9201982 Early stopping best 245 last 545
+REUSE AUDITED PARTIAL 22-ELoRA-N200-R4-9201982 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N200-R4-9201982 test
+AUDIT 22-ELoRA-N50-R4-9201980 Early stopping best 158 last 458
+REUSE AUDITED PARTIAL 22-ELoRA-N50-R4-9201980 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N50-R4-9201980 test
+AUDIT 22-ELoRA-N800-R4-9201983 Stopped before convergence best 301 last 577
+PREDICT 22-ELoRA-N800-R4-9201983 valid 50 elapsed 20
+PREDICT 22-ELoRA-N800-R4-9201983 test 50 elapsed 34
+PREDICT 22-ELoRA-N800-R4-9201983 test 100 elapsed 49
+PREDICT 22-ELoRA-N800-R4-9201983 test 150 elapsed 64
+AUDIT 23-FullFineTune-N10-9203033 Early stopping best 917 last 1217
+PREDICT 23-FullFineTune-N10-9203033 valid 50 elapsed 80
+PREDICT 23-FullFineTune-N10-9203033 test 50 elapsed 96
+PREDICT 23-FullFineTune-N10-9203033 test 100 elapsed 113
+PREDICT 23-FullFineTune-N10-9203033 test 150 elapsed 130
+AUDIT 23-FullFineTune-N100-9203035 Early stopping best 633 last 933
+PREDICT 23-FullFineTune-N100-9203035 valid 50 elapsed 149
+PREDICT 23-FullFineTune-N100-9203035 test 50 elapsed 163
+PREDICT 23-FullFineTune-N100-9203035 test 100 elapsed 176
+PREDICT 23-FullFineTune-N100-9203035 test 150 elapsed 189
+AUDIT 23-FullFineTune-N200-9203036 Early stopping best 580 last 880
+PREDICT 23-FullFineTune-N200-9203036 valid 50 elapsed 203
+Traceback (most recent call last):
+  File "/Users/louismcauliffe/.codex/.chatgpt-projects/g-p-6aa93f0341cc8191bbd47fb85a4101fb/outputs/experiment-21-23-analysis/evaluate.py", line 146, in <module>
+    if split=='valid':
+               ^^^^^^^^
+AssertionError: ('23-FullFineTune-N200-9203036', 0.023155984647325198, 0.023143034428358078)

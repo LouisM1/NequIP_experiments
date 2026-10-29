@@ -82,7 +82,7 @@ track(source_path)
 source = torch.load(source_path, map_location='cpu', weights_only=False).models['nequip']
 models, rows = {}, []
 paths = sorted(ROOT.glob('graph-pes-results/1[789]*/*/train-config.yaml'))
-paths += sorted(ROOT.glob('graph-pes-results/21-*/train-config.yaml'))
+paths += sorted(ROOT.glob('graph-pes-results/21-FrozenBackbone-LearningCurve/*/train-config.yaml'))
 assert len(paths) == 20, len(paths)
 for cp in paths:
     d = cp.parent

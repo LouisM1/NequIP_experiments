@@ -1,0 +1,66 @@
+[
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/21-FrozenBackbone-LearningCurve/21-FrozenBackbone-N10-ScaleLR-9200932",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/21-FrozenBackbone-LearningCurve/21-FrozenBackbone-N100-ScaleLR-9200934",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/21-FrozenBackbone-LearningCurve/21-FrozenBackbone-N200-ScaleLR-9200935",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/21-FrozenBackbone-LearningCurve/21-FrozenBackbone-N50-ScaleLR-9200933",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/21-FrozenBackbone-LearningCurve/21-FrozenBackbone-N800-ScaleLR-9200936",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/22-ELoRA-LearningCurve/22-ELoRA-N10-R4-9201979",
+    "unchanged_tracked_files": 6
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/22-ELoRA-LearningCurve/22-ELoRA-N100-R4-9201369",
+    "unchanged_tracked_files": 6
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/22-ELoRA-LearningCurve/22-ELoRA-N100-R4-9201981",
+    "unchanged_tracked_files": 6
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/22-ELoRA-LearningCurve/22-ELoRA-N200-R4-9201982",
+    "unchanged_tracked_files": 6
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/22-ELoRA-LearningCurve/22-ELoRA-N50-R4-9201980",
+    "unchanged_tracked_files": 6
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/22-ELoRA-LearningCurve/22-ELoRA-N800-R4-9201983",
+    "unchanged_tracked_files": 5
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/23-FullFineTune-LearningCurve/23-FullFineTune-N10-9203033",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/23-FullFineTune-LearningCurve/23-FullFineTune-N100-9203035",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/23-FullFineTune-LearningCurve/23-FullFineTune-N200-9203036",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/23-FullFineTune-LearningCurve/23-FullFineTune-N50-9203034",
+    "unchanged_tracked_files": 7
+  },
+  {
+    "folder": "/Users/louismcauliffe/code/research/NequIP_experiments/graph-pes-results/23-FullFineTune-LearningCurve/23-FullFineTune-N800-9203037",
+    "unchanged_tracked_files": 7
+  }
+]

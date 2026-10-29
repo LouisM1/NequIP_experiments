@@ -1,0 +1,81 @@
+AUDIT 17-Scratch-N10-9189913 Early stopping best 62 last 362
+AUDIT 17-Scratch-N100-9189907 Early stopping best 110 last 410
+AUDIT 17-Scratch-N200-9189904 Early stopping best 114 last 414
+AUDIT 17-Scratch-N50-9189910 Early stopping best 90 last 390
+AUDIT 17-Scratch-N800-9189901 Early stopping best 237 last 537
+AUDIT 19-LastLayerTransfer-N10-9189915 Early stopping best 416 last 716
+AUDIT 19-LastLayerTransfer-N100-9189909 Early stopping best 146 last 446
+AUDIT 19-LastLayerTransfer-N200-9189906 Early stopping best 196 last 496
+AUDIT 19-LastLayerTransfer-N50-9189912 Early stopping best 256 last 556
+AUDIT 19-LastLayerTransfer-N800-9189903 Early stopping best 305 last 605
+AUDIT 21-FrozenBackbone-N10-ScaleLR-9200932 Early stopping best 4704 last 5004
+AUDIT 21-FrozenBackbone-N100-ScaleLR-9200934 Early stopping best 3618 last 3918
+AUDIT 21-FrozenBackbone-N200-ScaleLR-9200935 Early stopping best 2676 last 2976
+AUDIT 21-FrozenBackbone-N50-ScaleLR-9200933 Early stopping best 5361 last 5661
+AUDIT 21-FrozenBackbone-N800-ScaleLR-9200936 Early stopping best 1697 last 1997
+AUDIT 22-ELoRA-N10-R4-9201979 Early stopping best 267 last 567
+REUSE AUDITED PARTIAL 22-ELoRA-N10-R4-9201979 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N10-R4-9201979 test
+AUDIT 22-ELoRA-N100-R4-9201369 Early stopping best 175 last 475
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201369 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201369 test
+AUDIT 22-ELoRA-N100-R4-9201981 Early stopping best 195 last 495
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201981 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N100-R4-9201981 test
+AUDIT 22-ELoRA-N200-R4-9201982 Early stopping best 245 last 545
+REUSE AUDITED PARTIAL 22-ELoRA-N200-R4-9201982 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N200-R4-9201982 test
+AUDIT 22-ELoRA-N50-R4-9201980 Early stopping best 158 last 458
+REUSE AUDITED PARTIAL 22-ELoRA-N50-R4-9201980 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N50-R4-9201980 test
+AUDIT 22-ELoRA-N800-R4-9201983 Stopped before convergence best 301 last 577
+REUSE AUDITED PARTIAL 22-ELoRA-N800-R4-9201983 valid
+REUSE AUDITED PARTIAL 22-ELoRA-N800-R4-9201983 test
+AUDIT 23-FullFineTune-N10-9203033 Early stopping best 917 last 1217
+REUSE AUDITED PARTIAL 23-FullFineTune-N10-9203033 valid
+REUSE AUDITED PARTIAL 23-FullFineTune-N10-9203033 test
+AUDIT 23-FullFineTune-N100-9203035 Early stopping best 633 last 933
+REUSE AUDITED PARTIAL 23-FullFineTune-N100-9203035 valid
+REUSE AUDITED PARTIAL 23-FullFineTune-N100-9203035 test
+AUDIT 23-FullFineTune-N200-9203036 Early stopping best 580 last 880
+PREDICT 23-FullFineTune-N200-9203036 valid 50 elapsed 19
+PREDICT 23-FullFineTune-N200-9203036 test 50 elapsed 33
+PREDICT 23-FullFineTune-N200-9203036 test 100 elapsed 45
+PREDICT 23-FullFineTune-N200-9203036 test 150 elapsed 59
+AUDIT 23-FullFineTune-N50-9203034 Early stopping best 471 last 771
+PREDICT 23-FullFineTune-N50-9203034 valid 50 elapsed 73
+PREDICT 23-FullFineTune-N50-9203034 test 50 elapsed 88
+PREDICT 23-FullFineTune-N50-9203034 test 100 elapsed 103
+PREDICT 23-FullFineTune-N50-9203034 test 150 elapsed 118
+AUDIT 23-FullFineTune-N800-9203037 Early stopping best 459 last 759
+PREDICT 23-FullFineTune-N800-9203037 valid 50 elapsed 133
+PREDICT 23-FullFineTune-N800-9203037 test 50 elapsed 148
+PREDICT 23-FullFineTune-N800-9203037 test 100 elapsed 164
+PREDICT 23-FullFineTune-N800-9203037 test 150 elapsed 178
+ experiment   n     loss  Si_rmse   O_rmse                     status
+         17  10 0.190785 3.858483 8.343013             Early stopping
+         17 100 0.047906 1.988764 4.055057             Early stopping
+         17 200 0.026383 1.395926 3.186140             Early stopping
+         17  50 0.073925 2.475023 5.026701             Early stopping
+         17 800 0.006572 0.650268 1.681442             Early stopping
+         19  10 0.058997 2.278389 4.326988             Early stopping
+         19 100 0.028056 1.481360 3.195555             Early stopping
+         19 200 0.021831 1.337410 2.749299             Early stopping
+         19  50 0.034053 1.677315 3.417560             Early stopping
+         19 800 0.014975 1.072963 2.355043             Early stopping
+         21  10 0.223188 4.099186 9.184377             Early stopping
+         21 100 0.128939 3.023868 7.170840             Early stopping
+         21 200 0.125363 2.982202 7.069612             Early stopping
+         21  50 0.136895 3.097032 7.426261             Early stopping
+         21 800 0.115225 2.871831 6.751919             Early stopping
+         22  10 0.038517 1.586053 4.048497             Early stopping
+         22 100 0.017423 1.055007 2.744607             Early stopping
+         22 200 0.012596 0.871377 2.379609             Early stopping
+         22  50 0.021466 1.280547 2.828437             Early stopping
+         22 800 0.006952 0.674127 1.719492 Stopped before convergence
+         23  10 0.059458 2.181390 4.596357             Early stopping
+         23 100 0.015735 1.071012 2.475146             Early stopping
+         23 200 0.010875 0.863413 2.111784             Early stopping
+         23  50 0.022399 1.261543 2.986363             Early stopping
+         23 800 0.005205 0.593317 1.468712             Early stopping
+EVALUATION COMPLETE; INPUT HASHES UNCHANGED

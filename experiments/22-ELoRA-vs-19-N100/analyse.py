@@ -26,7 +26,7 @@ import nmr_helpers.elora
 
 RUNS = {
     'Last layer + head': '19-LastLayerTransfer-LearningCurve/19-LastLayerTransfer-N100-9189909',
-    'ELoRA rank 4 + head': '22-ELoRA-N100-R4-9201369',
+    'ELoRA rank 4 + head': '22-ELoRA-LearningCurve/22-ELoRA-N100-R4-9201369',
 }
 COLORS = ['#198C83', '#7751B5']
 torch.set_num_threads(4)
